@@ -1,0 +1,170 @@
+import type { Boss, Lesson } from './types';
+
+export const softwareLessons: Lesson[] = [
+  {
+    id: 'software-1',
+    track: 'software',
+    title: 'Layers',
+    minutes: 5,
+    diagram: {
+      kind: 'stack',
+      left: 'USER SEES',
+      right: 'DATA LIVES',
+      layers: [
+        { label: 'UI', sub: 'screens and buttons', icon: 'phone' },
+        { label: 'API', sub: 'the front door for data', icon: 'plug' },
+        { label: 'Business logic', sub: 'the rules: price, limits', icon: 'settings', hot: true },
+        { label: 'Database', sub: 'saved data', icon: 'db' },
+      ],
+    },
+    cards: [
+      { icon: 'layers', lines: ['Good apps are built in [layers].', 'Each layer has one job.'] },
+      { icon: 'phone', lines: ['The UI only shows things.', 'It never talks to the database.'] },
+      { icon: 'settings', lines: ['[Business logic] holds the rules.', '“Max 4 tickets per person.”'] },
+      { icon: 'hammer', lines: ['Change one layer, keep the rest.', 'New UI? Same rules, same data.'] },
+    ],
+    realCase: { title: 'Web and app, one backend', text: 'A bank app and its website use the same API and rules. Only the UI layer differs.' },
+    words: [
+      { term: 'Layers', meaning: 'Parts of an app stacked by job: UI, API, logic, data.' },
+      { term: 'Business logic', meaning: 'The real rules of the business, written in code.' },
+      { term: 'UI', meaning: 'User Interface: what people see and tap.' },
+    ],
+    amharic: 'ጥሩ ሶፍትዌር በንብርብሮች ይሰራል፤ እያንዳንዱ ንብርብር አንድ ስራ ብቻ አለው።',
+    quiz: [
+      { q: '“A user can book max 4 seats.” Which layer?', options: ['UI', 'Business logic', 'Database', 'Wi-Fi'], answer: 1, why: 'It is a business rule, so it lives in the logic layer.' },
+      { q: 'Why separate layers?', options: ['Change one part without breaking all', 'To make the app slower', 'To use more RAM', 'Because Python says so'], answer: 0, why: 'Each layer can change on its own.' },
+    ],
+  },
+  {
+    id: 'software-2',
+    track: 'software',
+    title: 'APIs & REST',
+    minutes: 6,
+    diagram: {
+      kind: 'flow',
+      nodes: [
+        { id: 'a', label: 'App', icon: 'phone', x: 45, y: 110, sub: 'CLIENT' },
+        { id: 'r', label: 'GET /trips', x: 165, y: 60, w: 104, hot: true },
+        { id: 's', label: 'Server', icon: 'server', x: 300, y: 110, sub: 'API' },
+        { id: 'j', label: 'JSON', x: 165, y: 165, w: 84 },
+      ],
+      edges: [['a', 'r'], ['r', 's'], ['s', 'j'], ['j', 'a']],
+      route: ['a', 'r', 's', 'j', 'a'],
+      steps: ['1 ASK', '', '2 ANSWER', ''],
+    },
+    cards: [
+      { icon: 'plug', lines: ['An [API] is a menu for programs.', 'Ask in a fixed way, get data.'] },
+      { icon: 'upload', lines: ['[REST] uses web addresses.', 'GET /trips, POST /bookings.'] },
+      { icon: 'doc', lines: ['Verbs say the action.', 'GET read · POST create · DELETE remove.'] },
+      { icon: 'code', lines: ['Answers come back as [JSON].', '{ "from": "Addis", "seats": 12 }'] },
+    ],
+    realCase: { title: 'Weather in your app', text: 'Your app calls a weather API: GET /weather?city=Adama. It gets back JSON with the temperature.' },
+    words: [
+      { term: 'API', meaning: 'A fixed way for one program to ask another for data or actions.' },
+      { term: 'REST', meaning: 'A style of API using URLs and HTTP verbs like GET and POST.' },
+      { term: 'JSON', meaning: 'A simple text format for data: { "key": "value" }.' },
+    ],
+    amharic: 'API አንድ ፕሮግራም ሌላውን ፕሮግራም መረጃ የሚጠይቅበት መንገድ ነው።',
+    quiz: [
+      { q: 'Create a new booking. Which verb?', options: ['GET', 'POST', 'DELETE', 'PRINT'], answer: 1, why: 'POST creates something new.' },
+      { q: 'GET /trips should…', options: ['Delete trips', 'Read the list of trips', 'Restart the server', 'Send an SMS'], answer: 1, why: 'GET only reads. It changes nothing.' },
+      { q: 'APIs usually answer in…', options: ['JSON', 'MP3', 'PDF', 'Amharic only'], answer: 0, why: 'JSON is easy for any program to read.' },
+    ],
+  },
+  {
+    id: 'software-3',
+    track: 'software',
+    title: 'Clean code principles',
+    minutes: 5,
+    diagram: {
+      kind: 'compare',
+      a: { title: 'Messy', icon: 'bug', points: ['x = f(a, b, 3)', 'One 400-line function', 'Same code copied 5×'] },
+      b: { title: 'Clean', icon: 'check', points: ['total = addFee(price)', 'Small functions, 1 job each', 'Shared code in one place'] },
+    },
+    cards: [
+      { icon: 'eye', lines: ['Code is read 10× more than written.', 'Write for the next reader.'] },
+      { icon: 'doc', lines: ['Use clear names.', 'ticketPrice, not tp.'] },
+      { icon: 'target', lines: ['One function, one job.', 'Short enough to see at once.'] },
+      { icon: 'copy', lines: ['[DRY]: don’t repeat yourself.', 'Fix a bug once, not 5 times.'] },
+    ],
+    realCase: { title: 'Joining a team', text: 'On day one you read old code. Clean code means you can help in days, not months.' },
+    words: [
+      { term: 'DRY', meaning: 'Don’t Repeat Yourself: keep one copy of each idea.' },
+      { term: 'Refactor', meaning: 'Clean up code without changing what it does.' },
+      { term: 'Function', meaning: 'A named set of steps you can reuse.' },
+    ],
+    amharic: 'ንጹህ ኮድ ሌሎች ሰዎች በቀላሉ የሚያነቡት ኮድ ነው።',
+    quiz: [
+      { q: 'Best variable name?', options: ['x', 'data2', 'ticketPrice', 'thing'], answer: 2, why: 'It says exactly what it holds.' },
+      { q: 'The same 10 lines are in 4 places. Do…', options: ['Copy them once more', 'Move them into one function', 'Delete the comments', 'Nothing'], answer: 1, why: 'DRY: one place to read and fix.' },
+    ],
+  },
+  {
+    id: 'software-4',
+    track: 'software',
+    title: 'Monolith vs microservices',
+    minutes: 6,
+    diagram: {
+      kind: 'compare',
+      a: { title: 'Monolith', icon: 'box', points: ['One app, one deploy', 'Simple to start', 'Best for small teams'] },
+      b: { title: 'Microservices', icon: 'boxes', points: ['Many small apps', 'Each scales alone', 'Needs big teams + tools'] },
+    },
+    cards: [
+      { icon: 'box', lines: ['A [monolith] is one big app.', 'Users, payments, tickets: together.'] },
+      { icon: 'boxes', lines: ['[Microservices] split it up.', 'Each service talks by API.'] },
+      { icon: 'scale', lines: ['Microservices add hard problems.', 'Networks fail. Data splits.'] },
+      { icon: 'rocket', lines: ['Start with a clean monolith.', 'Split only when it hurts.'] },
+    ],
+    realCase: { title: 'Small startup, 3 developers', text: 'A monolith ships faster. Big companies split later, when teams grow past ~50 people.' },
+    words: [
+      { term: 'Monolith', meaning: 'One app that holds all features and deploys as one.' },
+      { term: 'Microservices', meaning: 'Many small apps, each with one job, talking by API.' },
+      { term: 'Deploy', meaning: 'Putting a new version of the app live.' },
+    ],
+    amharic: 'ሞኖሊት አንድ ትልቅ መተግበሪያ ነው፤ ማይክሮሰርቪስ ብዙ ትናንሽ አገልግሎቶች ናቸው።',
+    quiz: [
+      { q: '3 developers, new product. Best start?', options: ['Monolith', '20 microservices', 'No code', 'Blockchain'], answer: 0, why: 'Simple to build, test and deploy.' },
+      { q: 'A cost of microservices?', options: ['Network calls can fail', 'They are always slower to type', 'They need no servers', 'They cannot use APIs'], answer: 0, why: 'Services talk over the network, which can break.' },
+    ],
+  },
+];
+
+export const softwareBoss: Boss = {
+  id: 'boss-software',
+  track: 'software',
+  title: 'Bus ticket API',
+  task: ['A bus company: Addis → Bahir Dar, Hawassa…', 'Riders find trips, book, pay, cancel.', 'Design the REST API.'],
+  tags: ['REST', 'BOOKING', 'TELEBIRR'],
+  blocks: [
+    { label: 'GET /trips', icon: 'download' },
+    { label: 'POST /bookings', icon: 'upload' },
+    { label: 'GET /bookings/{id}', icon: 'doc' },
+    { label: 'DELETE /bookings/{id}', icon: 'trash' },
+    { label: 'POST /payments', icon: 'money' },
+    { label: 'GET /deleteBooking', icon: 'bug' },
+    { label: 'Database', icon: 'db' },
+  ],
+  start: ['Rider app'],
+  checks: [
+    { text: 'Find trips by city and date', needs: ['GET /trips'] },
+    { text: 'Book a seat', needs: ['POST /bookings'] },
+    { text: 'See my ticket', needs: ['GET /bookings/{id}'] },
+    { text: 'Pay with telebirr', needs: ['POST /payments'] },
+    { text: 'Cancel with the right verb', needs: ['DELETE /bookings/{id}'], avoid: ['GET /deleteBooking'] },
+  ],
+  hints: ['Reading data → GET. Creating → POST.', 'Use nouns in URLs: /bookings, not /makeBooking.', 'GET must never change data.'],
+  model: {
+    kind: 'flow',
+    nodes: [
+      { id: 'a', label: 'Rider app', icon: 'phone', x: 45, y: 110 },
+      { id: 't', label: 'GET /trips', x: 180, y: 30, w: 120 },
+      { id: 'b', label: 'POST /bookings', x: 180, y: 85, w: 120, hot: true },
+      { id: 'p', label: 'POST /payments', x: 180, y: 140, w: 120 },
+      { id: 'd', label: 'DELETE /bookings', x: 180, y: 195, w: 120 },
+      { id: 'db', label: 'DB', icon: 'db', x: 318, y: 110, w: 56 },
+    ],
+    edges: [['a', 't'], ['a', 'b'], ['a', 'p'], ['a', 'd'], ['t', 'db'], ['b', 'db'], ['p', 'db'], ['d', 'db']],
+    route: ['a', 't', 'db', 'b', 'a', 'p', 'db'],
+  },
+  modelNotes: ['Nouns in URLs, verbs in the method.', 'POST /payments calls telebirr, then marks the booking paid.', 'Return JSON with clear status codes: 201, 404.'],
+};

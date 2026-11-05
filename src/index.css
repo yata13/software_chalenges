@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: dark; }
+  html, body { margin: 0; }
+  body {
+    @apply bg-bg0 text-ink font-body antialiased;
+    font-size: 16px;
+    line-height: 23px;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (min-width: 900px) { body { background-size: 32px 32px; } }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid #FF4B52; outline-offset: 2px; }
+  ::placeholder { color: #868694; }
+}
+
+@layer components {
+  .label { @apply font-mono text-[11px] leading-4 tracking-[.08em] uppercase text-ink3; }
+  .card { @apply rounded-lg bg-surface border border-line p-4; }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(229, 38, 45, .25), 0 0 10px #E5262D; }
+  50% { box-shadow: 0 0 0 8px rgba(229, 38, 45, .1), 0 0 20px #E5262D; }
+}
+.pulse-red { animation: pulse-red 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}

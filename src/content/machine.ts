@@ -1,0 +1,178 @@
+import type { Boss, Lesson } from './types';
+
+export const machineLessons: Lesson[] = [
+  {
+    id: 'machine-1',
+    track: 'machine',
+    title: 'What a computer does',
+    minutes: 4,
+    diagram: {
+      kind: 'flow',
+      nodes: [
+        { id: 'in', label: 'Input', icon: 'phone', x: 45, y: 110, sub: 'TAP, TYPE' },
+        { id: 'cpu', label: 'CPU', icon: 'cpu', x: 180, y: 110, hot: true, sub: 'PROCESS' },
+        { id: 'ram', label: 'Memory', icon: 'ram', x: 180, y: 32, sub: 'STORE' },
+        { id: 'out', label: 'Output', icon: 'monitor', x: 315, y: 110, sub: 'SCREEN' },
+      ],
+      edges: [['in', 'cpu'], ['cpu', 'ram'], ['cpu', 'out']],
+      route: ['in', 'cpu', 'ram', 'cpu', 'out'],
+      steps: ['1 INPUT', '2 STORE', '3 PROCESS', '4 OUTPUT'],
+    },
+    cards: [
+      { icon: 'phone', lines: ['A computer does 4 jobs.', 'Input, process, store, output.'] },
+      { icon: 'cpu', lines: ['The [CPU] does the thinking.', 'Billions of tiny steps per second.'] },
+      { icon: 'ram', lines: ['[Memory] holds what it works on.', 'Like a desk for open papers.'] },
+      { icon: 'binary', lines: ['Inside, everything is numbers.', 'Text, photos, music: all [binary].'] },
+    ],
+    realCase: { title: 'Paying with telebirr', text: 'You type the amount (input). The phone checks it (process), saves it (store), shows “Success” (output).' },
+    words: [
+      { term: 'CPU', meaning: 'Central Processing Unit. The brain that runs every step.' },
+      { term: 'Memory', meaning: 'Where the computer keeps data it is using now (RAM).' },
+      { term: 'Binary', meaning: 'Numbers made only of 0 and 1. Computers speak this.' },
+    ],
+    amharic: 'ኮምፒውተር መረጃ ይቀበላል፣ ያሰላል፣ ያስቀምጣል፣ ውጤት ያሳያል።',
+    quiz: [
+      { q: 'You tap “Send” in Telegram. Which job is the tap?', options: ['Input', 'Output', 'Storage', 'Cooling'], answer: 0, why: 'A tap gives data to the computer. That is input.' },
+      { q: 'Which part does the thinking?', options: ['Screen', 'CPU', 'Keyboard', 'Charger'], answer: 1, why: 'The CPU runs every instruction.' },
+      { q: 'A photo inside a phone is stored as…', options: ['Tiny pictures', 'Numbers (0 and 1)', 'Ink', 'Sound'], answer: 1, why: 'Every pixel color is saved as numbers.' },
+    ],
+  },
+  {
+    id: 'machine-2',
+    track: 'machine',
+    title: 'Memory speed layers',
+    minutes: 5,
+    diagram: {
+      kind: 'bars',
+      log: true,
+      caption: 'TIME TO GET DATA · LOG SCALE · SHORTER = FASTER',
+      bars: [
+        { label: 'CPU cache', value: 1, text: '1 ns', hot: true },
+        { label: 'RAM', value: 100, text: '100 ns' },
+        { label: 'SSD', value: 100_000, text: '0.1 ms' },
+        { label: 'Hard disk', value: 10_000_000, text: '10 ms' },
+        { label: 'Internet', value: 150_000_000, text: '150 ms' },
+      ],
+    },
+    cards: [
+      { icon: 'gauge', lines: ['Fast memory is small and costly.', 'Big memory is slow and cheap.'] },
+      { icon: 'cpu', lines: ['The [cache] sits inside the CPU.', 'Tiny, but super fast.'] },
+      { icon: 'ram', lines: ['[RAM] is the work desk.', 'It forgets when power goes off.'] },
+      { icon: 'disk', lines: ['An [SSD] keeps files forever.', 'About 1,000× slower than RAM.'] },
+    ],
+    realCase: { title: 'Power cut in Addis', text: 'Your unsaved Word file was in RAM. It is gone. The saved file on the SSD stays.' },
+    words: [
+      { term: 'Cache', meaning: 'A small, fast copy kept close by, for speed.' },
+      { term: 'RAM', meaning: 'Fast short-term memory. Empty when power is off.' },
+      { term: 'SSD', meaning: 'Solid State Drive. Fast storage with no moving parts.' },
+      { term: 'Latency', meaning: 'How long you wait before data arrives.' },
+    ],
+    amharic: 'ወደ CPU የቀረበ ማህደረ ትውስታ ፈጣን ግን ትንሽ ነው።',
+    quiz: [
+      { q: 'Which is fastest?', options: ['Hard disk', 'RAM', 'CPU cache', 'Internet'], answer: 2, why: 'Cache sits inside the CPU, so it is closest.' },
+      { q: 'Power goes off. What is lost?', options: ['Files on the SSD', 'Data only in RAM', 'Photos on Google Drive', 'Nothing'], answer: 1, why: 'RAM needs power to remember.' },
+      { q: 'Why not make all memory like cache?', options: ['It is too slow', 'It is very costly and small', 'It is illegal', 'It needs Wi-Fi'], answer: 1, why: 'Fast memory costs much more per GB.' },
+    ],
+  },
+  {
+    id: 'machine-3',
+    track: 'machine',
+    title: 'CPU vs GPU',
+    minutes: 5,
+    diagram: {
+      kind: 'cores',
+      a: { title: 'CPU', sub: 'FEW BIG, SMART CORES', cores: 8 },
+      b: { title: 'GPU', sub: 'THOUSANDS OF TINY CORES', cores: 160 },
+    },
+    cards: [
+      { icon: 'cpu', lines: ['A CPU has a few big [cores].', 'Each one is smart and fast.'] },
+      { icon: 'cache', lines: ['A [GPU] has thousands of tiny cores.', 'Each one is simple.'] },
+      { icon: 'target', lines: ['One hard job, step by step?', 'The CPU wins.'] },
+      { icon: 'image', lines: ['Millions of small, same jobs?', 'The GPU wins: pixels, AI math.'] },
+    ],
+    realCase: { title: 'Why AI needs GPUs', text: 'Training a model is billions of small multiplications. Many tiny cores do them at once.' },
+    words: [
+      { term: 'Cores', meaning: 'Workers inside a chip. Each core runs tasks.' },
+      { term: 'GPU', meaning: 'Graphics Processing Unit. Many small cores working together.' },
+      { term: 'Parallel', meaning: 'Many jobs done at the same time.' },
+    ],
+    amharic: 'CPU ጥቂት ጠንካራ ኮሮች አሉት፤ GPU ደግሞ ብዙ ትናንሽ ኮሮች አሉት።',
+    quiz: [
+      { q: 'Your laptop opens Excel. Who does most of the work?', options: ['CPU', 'GPU', 'Monitor', 'Wi-Fi'], answer: 0, why: 'One general job, step by step: CPU work.' },
+      { q: 'Why do AI teams buy GPUs?', options: ['They are cheaper', 'Many small math jobs at once', 'They store more files', 'Better Wi-Fi'], answer: 1, why: 'AI is millions of small, same calculations: parallel work.' },
+    ],
+  },
+  {
+    id: 'machine-4',
+    track: 'machine',
+    title: 'How code becomes machine code',
+    minutes: 5,
+    diagram: {
+      kind: 'timeline',
+      steps: [
+        { label: 'You write code', sub: 'print("Selam")', icon: 'code' },
+        { label: 'Compiler', sub: 'translates', icon: 'hammer' },
+        { label: 'Machine code', sub: '10110000 01100001', icon: 'binary' },
+        { label: 'CPU runs it', sub: 'billions/sec', icon: 'cpu' },
+      ],
+    },
+    cards: [
+      { icon: 'code', lines: ['You write code for humans.', 'Words like if, print, while.'] },
+      { icon: 'binary', lines: ['The CPU only reads [machine code].', 'Just 0s and 1s.'] },
+      { icon: 'hammer', lines: ['A [compiler] translates it all first.', 'C, Go and Rust work this way.'] },
+      { icon: 'play', lines: ['An [interpreter] translates while running.', 'Python and JavaScript work this way.'] },
+    ],
+    realCase: { title: 'Your first Python script', text: 'You type print("Selam"). Python turns it into steps the CPU can run.' },
+    words: [
+      { term: 'Machine code', meaning: 'Instructions in 0s and 1s that a CPU runs.' },
+      { term: 'Compiler', meaning: 'Translates all your code to machine code before it runs.' },
+      { term: 'Interpreter', meaning: 'Reads and runs code line by line.' },
+    ],
+    amharic: 'የምንጽፈው ኮድ ወደ 0 እና 1 ተቀይሮ በCPU ይሰራል።',
+    quiz: [
+      { q: 'What can a CPU read directly?', options: ['Python', 'English', 'Machine code', 'HTML'], answer: 2, why: 'Everything else must be translated first.' },
+      { q: 'A compiler…', options: ['Translates code before it runs', 'Draws the screen', 'Stores passwords', 'Sends emails'], answer: 0, why: 'It makes a program file you can run later.' },
+      { q: 'Python usually runs with…', options: ['A compiler only', 'An interpreter', 'A GPU', 'A router'], answer: 1, why: 'Python reads and runs your code as it goes.' },
+    ],
+  },
+];
+
+export const machineBoss: Boss = {
+  id: 'boss-machine',
+  track: 'machine',
+  title: 'Spec a laptop',
+  task: ['You code and edit short videos.', 'Power cuts are common. Budget is tight.', 'Pick the right parts.'],
+  tags: ['CODING', 'LIGHT VIDEO', 'POWER CUTS'],
+  blocks: [
+    { label: '8 GB RAM', icon: 'ram' },
+    { label: '16 GB RAM', icon: 'ram' },
+    { label: 'HDD 1 TB', icon: 'disk' },
+    { label: 'SSD 512 GB', icon: 'disk' },
+    { label: '4-core CPU', icon: 'cpu' },
+    { label: '8-core CPU', icon: 'cpu' },
+    { label: 'Gaming GPU', icon: 'monitor' },
+    { label: 'Big battery', icon: 'battery' },
+  ],
+  start: ['Laptop'],
+  checks: [
+    { text: 'Enough RAM for code + browser', needs: ['16 GB RAM'] },
+    { text: 'Fast boot and builds', needs: ['SSD 512 GB'] },
+    { text: 'Enough cores for video export', needs: ['8-core CPU'] },
+    { text: 'Works through power cuts', needs: ['Big battery'] },
+    { text: 'Stays in a tight budget', needs: [], avoid: ['Gaming GPU'] },
+  ],
+  hints: ['Browser + VS Code + phone emulator eat RAM fast.', 'Which storage has no moving parts?', 'A big gaming GPU costs a lot and drains the battery.'],
+  model: {
+    kind: 'flow',
+    nodes: [
+      { id: 'l', label: 'Laptop', icon: 'laptop', x: 180, y: 110, hot: true },
+      { id: 'c', label: '8-core CPU', x: 70, y: 40, w: 104 },
+      { id: 'r', label: '16 GB RAM', x: 290, y: 40, w: 104 },
+      { id: 's', label: 'SSD 512 GB', x: 70, y: 180, w: 104 },
+      { id: 'b', label: 'Big battery', x: 290, y: 180, w: 104 },
+    ],
+    edges: [['l', 'c'], ['l', 'r'], ['l', 's'], ['l', 'b']],
+    route: ['l', 'c', 'l', 'r', 'l', 's', 'l', 'b', 'l'],
+  },
+  modelNotes: ['16 GB RAM: code, browser and tools fit.', 'SSD: starts in seconds, builds fast.', 'Skip the gaming GPU: save money and battery.'],
+};
