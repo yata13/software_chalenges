@@ -44,7 +44,7 @@ export default function FlowDiagram({ spec, t }: { spec: Spec; t: number }) {
   const dashed = new Set((spec.dashed ?? []).map(([x, y]) => `${x}>${y}`));
 
   return (
-    <svg viewBox="0 0 360 220" className="block h-auto w-full" role="img"
+    <svg viewBox="0 0 360 220" className="block h-auto max-h-[400px] w-full" role="img"
       aria-label={`Diagram: ${spec.route.map((id) => byId[id].label).join(' → ')}`}>
       <path d="M8 8h10M8 8v10M352 8h-10M352 8v10M8 212h10M8 212v-10M352 212h-10M352 212v-10" fill="none" stroke="#5A5A68" />
       {spec.edges.map(([x, y]) => {

@@ -48,7 +48,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-4 lg:gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-4 lg:gap-5">
       <header className="flex h-11 items-center justify-between">
         <h1 className="m-0 font-display text-[22px] font-semibold lg:text-[34px]">Profile</h1>
         <IconButton icon="tools" label="Tools" to="/tools" />

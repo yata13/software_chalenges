@@ -19,7 +19,7 @@ export default function Home() {
   const [nameDraft, setNameDraft] = useState('');
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <header className="flex h-11 items-center justify-between lg:hidden">
         <Logo />
         <div className="flex items-center gap-2">
@@ -108,6 +108,19 @@ export default function Home() {
               <Icon name="right" color="#868694" />
             </Link>
           )}
+          <div className="hidden flex-col gap-4 lg:flex">
+        <Link to="/tools" className="card flex flex-col gap-3">
+          <span className="label">Word of the day</span>
+          <div className="flex items-baseline gap-2.5"><b className="text-xl">{word.term}</b><span className="ml-auto font-mono text-[10px] uppercase text-ink3">{getTrack(word.track)?.short}</span></div>
+          <span className="text-[15px] leading-[21px]">{word.meaning}</span>
+        </Link>
+        <section className="card flex flex-col gap-3">
+          <span className="label !text-red-hi">Quick 5 · 2 min</span>
+          <b className="text-lg">Mixed review</b>
+          <span className="text-[15px] text-ink2">5 questions from lessons you finished.</span>
+          <LinkButton to="/practice/run" variant="secondary" small className="self-start"><Icon name="practice" size={16} />Start</LinkButton>
+        </section>
+          </div>
         </div>
       </div>
 
@@ -137,7 +150,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 lg:hidden">
         <Link to="/tools" className="card flex flex-col gap-3">
           <span className="label">Word of the day</span>
           <div className="flex items-baseline gap-2.5"><b className="text-xl">{word.term}</b><span className="ml-auto font-mono text-[10px] uppercase text-ink3">{getTrack(word.track)?.short}</span></div>

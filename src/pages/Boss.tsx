@@ -220,7 +220,7 @@ export default function Boss() {
   };
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <div className="flex min-h-11 items-center gap-3">
         <IconButton icon="left" label="Back to map" to={`/map?track=${boss.track}`} />
         <span className="label flex-1 !text-red-hi">Boss · T{track.n} {track.name}</span>

@@ -85,7 +85,7 @@ export default function Tools() {
   );
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <PageTitle label="Words · courses · prompts" title="Tools"
         right={
           <label className="flex h-[52px] w-full max-w-[420px] items-center gap-2.5 rounded-[14px] border border-line bg-surface px-4 focus-within:border-red-hi">

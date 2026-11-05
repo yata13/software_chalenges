@@ -35,7 +35,7 @@ export default function Lesson() {
   const pickWord = (w: string) => setWord((cur) => (cur?.toLowerCase() === w.toLowerCase() ? null : w));
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <div className="flex min-h-11 items-center gap-3">
         <IconButton icon="close" label="Close lesson" to="/" />
         <div className="flex-1"><Segments count={n} at={idx} label="Lesson progress" /></div>

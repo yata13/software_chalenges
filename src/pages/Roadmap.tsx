@@ -24,7 +24,7 @@ export default function Roadmap() {
   const selData = stops(p, sel);
 
   return (
-    <div className="mx-auto flex max-w-[1120px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <PageTitle label={`${TRACKS.length} tracks · ${TOTAL_LESSONS} lessons · ${TRACKS.length} bosses`} title="Roadmap"
         right={<span className="font-mono text-[13px]">{p.doneLessons.length}/{TOTAL_LESSONS} <span className="text-red-hi">· {Math.round((p.doneLessons.length / TOTAL_LESSONS) * 100)}%</span></span>} />
 

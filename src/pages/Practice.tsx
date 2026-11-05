@@ -49,7 +49,7 @@ function Hub({ finished }: { finished: Lesson[] }) {
   const p = useProgress();
   const pool = finished.reduce((n, l) => n + l.quiz.length, 0);
   return (
-    <div className="mx-auto flex max-w-[900px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1200px] flex-col gap-5">
       <PageTitle label="Keep it fresh" title="Practice" />
       <Link to="/practice/run" className="flex items-center gap-3.5 rounded-lg border border-red-line bg-[#1A1014] p-4">
         <span className="flex h-11 w-11 flex-none items-center justify-center rounded-md bg-red"><Icon name="practice" color="#fff" /></span>
@@ -140,7 +140,7 @@ function Run({ finished }: { finished: Lesson[] }) {
 
   const track = getTrack(q.track)!;
   return (
-    <div className="mx-auto flex max-w-[900px] flex-col gap-5">
+    <div className="mx-auto flex max-w-[1200px] flex-col gap-5">
       <div className="flex items-center gap-3">
         <IconButton icon="close" label="End practice" to="/practice" />
         <div className="flex flex-1 flex-col gap-0.5"><span className="label !text-red-hi">Quick 5 · mixed</span><span className="text-sm text-ink2">Question {qi + 1} of {n}</span></div>

@@ -94,7 +94,7 @@ export function NeuralView({ spec, t }: { spec: NeuralDiagram; t: number }) {
   const wave = t * (L + 0.8) - 0.3;
   const strong = (l: number, a: number, b: number) => (l * 7 + a * 3 + b * 5) % 4 === 0;
   return (
-    <svg viewBox="0 0 360 220" className="block h-auto w-full" role="img" aria-label={`Neural network with layers of ${spec.layers.join(', ')} neurons. Output: ${spec.outputs?.[0] ?? ''}`}>
+    <svg viewBox="0 0 360 220" className="block h-auto max-h-[400px] w-full" role="img" aria-label={`Neural network with layers of ${spec.layers.join(', ')} neurons. Output: ${spec.outputs?.[0] ?? ''}`}>
       {spec.layers.slice(0, -1).map((n, l) => ys(n).map((y1, a) => ys(spec.layers[l + 1]).map((y2, b) => {
         const s = strong(l, a, b);
         const lit = wave > l + 0.4 && wave < l + 1.6;

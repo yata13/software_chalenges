@@ -59,7 +59,7 @@ export default function Quiz() {
   }
 
   return (
-    <div className="mx-auto flex max-w-[900px] flex-col gap-6">
+    <div className="mx-auto flex max-w-[1200px] flex-col gap-6">
       <div className="flex min-h-11 items-center gap-3">
         <IconButton icon="close" label="Quit quiz" to={`/lesson/${lesson.id}`} />
         <div className="flex-1"><XPBar pct={((qi + (picked !== null ? 1 : 0)) / total) * 100} label="Quiz progress" /></div>
