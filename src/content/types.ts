@@ -1,6 +1,11 @@
 import type { IconName } from '../components/icons';
 
-export type TrackId = 'machine' | 'network' | 'cloud' | 'software' | 'system' | 'security' | 'ai' | 'future';
+export type TrackId =
+  | 'machine' | 'os' | 'cs' | 'math'
+  | 'network' | 'telecom' | 'cloud' | 'enterprise'
+  | 'software' | 'system' | 'security'
+  | 'ai' | 'humanai'
+  | 'thinking' | 'future';
 
 // ---------- Diagrams: drawn from data ----------
 export interface FlowNode {
@@ -56,7 +61,14 @@ export interface TimelineDiagram {
 export type Diagram = FlowDiagram | StackDiagram | CompareDiagram | BarsDiagram | NeuralDiagram | CoresDiagram | TimelineDiagram;
 
 // ---------- Lessons ----------
+// Professor flow: every lesson walks through these stages, in order.
+export type Stage = 'why' | 'idea' | 'how' | 'example' | 'mistake' | 'recap';
+export const STAGE_LABEL: Record<Stage, string> = {
+  why: 'Why it matters', idea: 'The big idea', how: 'How it works',
+  example: 'Worked example', mistake: 'Common mistake', recap: 'Key takeaway',
+};
 export interface Card {
+  stage: Stage;
   icon: IconName;
   lines: [string] | [string, string]; // [hard word] = tap to explain
 }
@@ -77,7 +89,10 @@ export interface Lesson {
   minutes: number;
   diagram: Diagram;
   cards: Card[];
+  goal: string; // "By the end you can…"
   realCase: { title: string; text: string };
+  deep: { title: string; points: string[] }[]; // Professor's notes: the detail
+  tryIt?: { title: string; steps: string[] }; // optional, easy hands-on
   words: Word[];
   amharic: string;
   quiz: QuizQuestion[];
@@ -110,6 +125,12 @@ export interface Track {
   short: string;
   abbr: string;
   icon: IconName;
+  phase: number;
   lessons: Lesson[];
   boss: Boss;
 }
+
+// ---------- Small helpers so content files stay short ----------
+export const c = (stage: Stage, icon: IconName, a: string, b?: string): Card => ({ stage, icon, lines: b ? [a, b] : [a] });
+export const q = (question: string, options: string[], answer: number, why: string): QuizQuestion => ({ q: question, options, answer, why });
+export const w = (term: string, meaning: string): Word => ({ term, meaning });

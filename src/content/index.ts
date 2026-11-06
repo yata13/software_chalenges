@@ -1,29 +1,53 @@
 import type { Boss, Lesson, Track, TrackId, Word } from './types';
 import { machineBoss, machineLessons } from './machine';
+import { osBoss, osLessons } from './os';
+import { csBoss, csLessons } from './cs';
+import { mathBoss, mathLessons } from './math';
 import { networkBoss, networkLessons } from './network';
+import { telecomBoss, telecomLessons } from './telecom';
 import { cloudBoss, cloudLessons } from './cloud';
+import { enterpriseBoss, enterpriseLessons } from './enterprise';
 import { softwareBoss, softwareLessons } from './software';
 import { systemBoss, systemLessons } from './system';
 import { securityBoss, securityLessons } from './security';
 import { aiBoss, aiLessons } from './ai';
+import { humanaiBoss, humanaiLessons } from './humanai';
+import { thinkingBoss, thinkingLessons } from './thinking';
 import { futureBoss, futureLessons } from './future';
 
 export type { Boss, Lesson, Track, TrackId, Word };
 
+// The roadmap is grouped into 5 phases, studied in order.
+export const PHASES = [
+  { n: 1, name: 'Foundations', note: 'How computers and code really work' },
+  { n: 2, name: 'Networks & Infrastructure', note: 'How machines talk and stay up' },
+  { n: 3, name: 'Building Software', note: 'Design, scale and secure real systems' },
+  { n: 4, name: 'The AI Era', note: 'How AI works and how to work with it' },
+  { n: 5, name: 'Thinking & Career', note: 'Solve problems, plan your future' },
+];
+
 export const TRACKS: Track[] = [
-  { id: 'machine', n: 1, name: 'The Machine', short: 'Machine', abbr: 'HW', icon: 'cpu', lessons: machineLessons, boss: machineBoss },
-  { id: 'network', n: 2, name: 'Networking', short: 'Network', abbr: 'NET', icon: 'network', lessons: networkLessons, boss: networkBoss },
-  { id: 'cloud', n: 3, name: 'Cloud & Servers', short: 'Cloud', abbr: 'CLD', icon: 'cloud', lessons: cloudLessons, boss: cloudBoss },
-  { id: 'software', n: 4, name: 'Software Design', short: 'Software', abbr: 'SWD', icon: 'layers', lessons: softwareLessons, boss: softwareBoss },
-  { id: 'system', n: 5, name: 'System Design', short: 'System', abbr: 'SYS', icon: 'flow', lessons: systemLessons, boss: systemBoss },
-  { id: 'security', n: 6, name: 'Cybersecurity', short: 'Security', abbr: 'SEC', icon: 'shield', lessons: securityLessons, boss: securityBoss },
-  { id: 'ai', n: 7, name: 'AI & Machine Learning', short: 'AI & ML', abbr: 'AI', icon: 'ai', lessons: aiLessons, boss: aiBoss },
-  { id: 'future', n: 8, name: 'Future of Tech Jobs', short: 'Future', abbr: 'JOBS', icon: 'jobs', lessons: futureLessons, boss: futureBoss },
+  { id: 'machine', n: 1, phase: 1, name: 'The Machine', short: 'Machine', abbr: 'HW', icon: 'cpu', lessons: machineLessons, boss: machineBoss },
+  { id: 'os', n: 2, phase: 1, name: 'Operating Systems & Linux', short: 'OS & Linux', abbr: 'OS', icon: 'code', lessons: osLessons, boss: osBoss },
+  { id: 'cs', n: 3, phase: 1, name: 'Computer Science & Algorithms', short: 'Algorithms', abbr: 'CS', icon: 'flow', lessons: csLessons, boss: csBoss },
+  { id: 'math', n: 4, phase: 1, name: 'Mathematics & Logic', short: 'Math & Logic', abbr: 'MATH', icon: 'binary', lessons: mathLessons, boss: mathBoss },
+  { id: 'network', n: 5, phase: 2, name: 'Networking', short: 'Network', abbr: 'NET', icon: 'network', lessons: networkLessons, boss: networkBoss },
+  { id: 'telecom', n: 6, phase: 2, name: 'Telecommunications Engineering', short: 'Telecom', abbr: 'TEL', icon: 'wifi', lessons: telecomLessons, boss: telecomBoss },
+  { id: 'cloud', n: 7, phase: 2, name: 'Cloud & Servers', short: 'Cloud', abbr: 'CLD', icon: 'cloud', lessons: cloudLessons, boss: cloudBoss },
+  { id: 'enterprise', n: 8, phase: 2, name: 'Enterprise IT & Infrastructure', short: 'Enterprise IT', abbr: 'ENT', icon: 'building', lessons: enterpriseLessons, boss: enterpriseBoss },
+  { id: 'software', n: 9, phase: 3, name: 'Software Design', short: 'Software', abbr: 'SWD', icon: 'layers', lessons: softwareLessons, boss: softwareBoss },
+  { id: 'system', n: 10, phase: 3, name: 'System Design', short: 'System', abbr: 'SYS', icon: 'boxes', lessons: systemLessons, boss: systemBoss },
+  { id: 'security', n: 11, phase: 3, name: 'Cybersecurity', short: 'Security', abbr: 'SEC', icon: 'shield', lessons: securityLessons, boss: securityBoss },
+  { id: 'ai', n: 12, phase: 4, name: 'AI & Machine Learning', short: 'AI & ML', abbr: 'AI', icon: 'ai', lessons: aiLessons, boss: aiBoss },
+  { id: 'humanai', n: 13, phase: 4, name: 'Human-AI Collaboration', short: 'Human + AI', abbr: 'H+AI', icon: 'bot', lessons: humanaiLessons, boss: humanaiBoss },
+  { id: 'thinking', n: 14, phase: 5, name: 'Critical Thinking & Problem Solving', short: 'Thinking', abbr: 'THINK', icon: 'brain', lessons: thinkingLessons, boss: thinkingBoss },
+  { id: 'future', n: 15, phase: 5, name: 'Future of Tech Jobs', short: 'Future', abbr: 'JOBS', icon: 'jobs', lessons: futureLessons, boss: futureBoss },
 ];
 
 export const ALL_LESSONS: Lesson[] = TRACKS.flatMap((t) => t.lessons);
 export const ALL_BOSSES: Boss[] = TRACKS.map((t) => t.boss);
 export const TOTAL_LESSONS = ALL_LESSONS.length;
+export const TOTAL_BOSSES = ALL_BOSSES.length;
 
 export const getTrack = (id: string) => TRACKS.find((t) => t.id === id);
 export const getLesson = (id: string) => ALL_LESSONS.find((l) => l.id === id);
@@ -55,6 +79,11 @@ export const COURSES = [
   { name: 'OWASP Top 10', note: 'The biggest web risks', track: 'security', href: 'https://owasp.org/www-project-top-ten/' },
   { name: 'ML Crash Course', note: 'Google · machine learning', track: 'ai', href: 'https://developers.google.com/machine-learning/crash-course' },
   { name: 'Hugging Face Learn', note: 'LLM and agents courses', track: 'ai', href: 'https://huggingface.co/learn' },
+  { name: 'Linux Journey', note: 'Free, step-by-step Linux basics', track: 'os', href: 'https://linuxjourney.com/' },
+  { name: 'Khan Academy', note: 'Free math, probability, statistics', track: 'math', href: 'https://www.khanacademy.org/math' },
+  { name: 'NeetCode', note: 'Data structures + algorithms, explained', track: 'cs', href: 'https://neetcode.io/' },
+  { name: 'Microsoft Learn', note: 'Windows Server, Active Directory, Azure', track: 'enterprise', href: 'https://learn.microsoft.com/training/' },
+  { name: 'Anthropic courses', note: 'Prompt engineering, free on GitHub', track: 'humanai', href: 'https://github.com/anthropics/courses' },
   { name: 'roadmap.sh', note: 'Step-by-step role roadmaps', track: 'future', href: 'https://roadmap.sh/' },
 ];
 

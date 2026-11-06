@@ -70,7 +70,7 @@ export default function Home() {
           </section>
         ) : (
           <section className="card flex flex-col gap-3 rounded-xl">
-            <span className="label !text-green">All 32 lessons done</span>
+            <span className="label !text-green">All {TOTAL_LESSONS} lessons done</span>
             <h2 className="m-0 font-display text-xl font-semibold">You finished the blueprint.</h2>
             <p className="m-0 text-ink2">Keep it fresh with practice, or beat the bosses you missed.</p>
             <LinkButton to="/practice">Practice</LinkButton>
@@ -129,7 +129,7 @@ export default function Home() {
           <h2 className="m-0 font-display text-base font-semibold">Your tracks</h2>
           <Link to="/map" className="flex h-11 items-center font-mono text-xs text-red-hi">{p.doneLessons.length}/{TOTAL_LESSONS} · See map →</Link>
         </div>
-        <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4 2xl:grid-cols-5">
           {TRACKS.map((t) => {
             const s = trackStats(p, t.id);
             const isCur = t.id === lesson?.track;

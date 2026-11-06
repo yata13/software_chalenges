@@ -3,7 +3,9 @@
 Learn how tech really works. **Pictures first, words last.**
 A phone + desktop learning app (installable PWA) for self-taught developers.
 
-- 8 tracks · 32 lessons · 8 boss challenges
+- 5 phases · 15 tracks · 68 lessons · 15 boss challenges · 204 quiz questions
+- Professor-style flow in every lesson: goal → why → big idea → how it works → worked example → common mistake → key takeaway
+- “Professor’s notes” for deep detail, and optional “Try it” hands-on challenges
 - Every lesson starts with an animated diagram, then short swipe cards
 - Tap-to-explain words, one-line Amharic summary, real examples from Ethiopia
 - Quiz with instant feedback, XP, levels, daily streak and goal
@@ -43,7 +45,7 @@ src/
 ## Add a lesson
 
 Open a file in `src/content/` (for example `network.ts`) and add an object to the list.
-TypeScript will tell you if a field is missing. Put `[word]` in a card line to make it a
+Use the helpers `c()` (card), `q()` (quiz) and `w()` (word). TypeScript will tell you if a field is missing. Put `[word]` in a card line to make it a
 tap-to-explain word (add the word to `words`).
 
 ## Deploy

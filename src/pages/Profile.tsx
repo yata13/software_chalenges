@@ -9,16 +9,18 @@ import { actions, levelOf, streakOf, trackStats, useProgress, weekXP, type Progr
 const BADGES: { name: string; rule: string; icon: IconName; test: (p: Progress) => boolean }[] = [
   { name: 'First Step', rule: 'FINISH 1 LESSON', icon: 'play', test: (p) => p.doneLessons.length >= 1 },
   { name: 'First Packet', rule: '1ST NETWORK LESSON', icon: 'network', test: (p) => p.doneLessons.some((l) => l.startsWith('network')) },
-  { name: 'Machine Mind', rule: 'TRACK 1 LESSONS', icon: 'cpu', test: (p) => trackStats(p, 'machine').done === 4 },
+  { name: 'Machine Mind', rule: 'TRACK 1 LESSONS', icon: 'cpu', test: (p) => trackStats(p, 'machine').complete || trackStats(p, 'machine').done === trackStats(p, 'machine').total },
+  { name: 'Linux Admin', rule: 'FINISH OS TRACK', icon: 'code', test: (p) => trackStats(p, 'os').done === trackStats(p, 'os').total },
+  { name: 'Signal Master', rule: 'FINISH TELECOM', icon: 'wifi', test: (p) => trackStats(p, 'telecom').done === trackStats(p, 'telecom').total },
   { name: 'Boss Slayer', rule: 'BEAT 1 BOSS', icon: 'target', test: (p) => p.doneBosses.length >= 1 },
-  { name: 'Boss Hunter', rule: 'BEAT 4 BOSSES', icon: 'award', test: (p) => p.doneBosses.length >= 4 },
+  { name: 'Boss Hunter', rule: 'BEAT 5 BOSSES', icon: 'award', test: (p) => p.doneBosses.length >= 5 },
   { name: 'Perfect', rule: '100% ON A QUIZ', icon: 'star', test: (p) => Object.values(p.scores).some((s) => s === 100) },
   { name: 'On Fire', rule: '7-DAY STREAK', icon: 'streak', test: (p) => streakOf(p.days) >= 7 },
   { name: 'Quick Thinker', rule: '3 STARS IN PRACTICE', icon: 'practice', test: (p) => p.runs.some((r) => r.stars === 3) },
   { name: 'Word Collector', rule: 'SAVE 10 WORDS', icon: 'bookmark', test: (p) => p.saved.length >= 10 },
   { name: 'Level 5', rule: 'REACH LEVEL 5', icon: 'trend', test: (p) => levelOf(p.xp).level >= 5 },
-  { name: 'AI Builder', rule: 'FINISH AI TRACK', icon: 'ai', test: (p) => trackStats(p, 'ai').done === 6 },
-  { name: 'Blueprint Master', rule: 'ALL 32 LESSONS', icon: 'grad', test: (p) => p.doneLessons.length >= TOTAL_LESSONS },
+  { name: 'AI Builder', rule: 'FINISH AI TRACK', icon: 'ai', test: (p) => trackStats(p, 'ai').done === trackStats(p, 'ai').total },
+  { name: 'Blueprint Master', rule: `ALL ${TOTAL_LESSONS} LESSONS`, icon: 'grad', test: (p) => p.doneLessons.length >= TOTAL_LESSONS },
 ];
 
 export default function Profile() {

@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { Diamond, Dot, Icon, PageTitle, XPBar, cx } from '../components/ui';
-import { TRACKS, TOTAL_LESSONS, type TrackId } from '../content';
+import { PHASES, TRACKS, TOTAL_LESSONS, type TrackId } from '../content';
 import { continueLesson, trackStats, useProgress, type Progress } from '../store/progress';
 
 type St = 'done' | 'next' | 'open';
@@ -25,7 +25,7 @@ export default function Roadmap() {
 
   return (
     <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
-      <PageTitle label={`${TRACKS.length} tracks · ${TOTAL_LESSONS} lessons · ${TRACKS.length} bosses`} title="Roadmap"
+      <PageTitle label={`${PHASES.length} phases · ${TRACKS.length} tracks · ${TOTAL_LESSONS} lessons · ${TRACKS.length} bosses`} title="Roadmap"
         right={<span className="font-mono text-[13px]">{p.doneLessons.length}/{TOTAL_LESSONS} <span className="text-red-hi">· {Math.round((p.doneLessons.length / TOTAL_LESSONS) * 100)}%</span></span>} />
 
       <div aria-label="Legend" className="flex flex-wrap items-center gap-3.5 rounded-[10px] border border-line-soft bg-surface2 px-3 py-2.5 font-mono text-[11px] text-ink2">
@@ -39,14 +39,27 @@ export default function Roadmap() {
         <section aria-label="Circuit map" className="relative rounded-xl border border-line bg-surface py-3.5 pl-2 pr-2.5">
           <div aria-hidden className="absolute bottom-9 left-[17px] top-9 w-0.5 bg-line-strong" />
           <div className="flex flex-col gap-1">
-            {TRACKS.map((t) => {
+            {PHASES.map((ph) => {
+              const tracks = TRACKS.filter((t) => t.phase === ph.n);
+              const phDone = tracks.reduce((a, t) => a + stops(p, t.id).s.done, 0);
+              const phTotal = tracks.reduce((a, t) => a + t.lessons.length, 0);
+              return (
+                <div key={ph.n} className="flex flex-col gap-1">
+                  <div className="relative flex flex-wrap items-baseline gap-x-3 gap-y-0.5 pb-1 pl-8 pr-2 pt-3">
+                    <span aria-hidden className="absolute left-[3px] top-[14px] flex h-[14px] w-[14px] items-center justify-center rounded-full border-2 border-red bg-bg0" />
+                    <span className="font-mono text-[11px] tracking-[.08em] text-red-hi">PHASE {ph.n}</span>
+                    <span className="font-display text-[15px] font-semibold">{ph.name}</span>
+                    <span className="hidden text-[13px] text-ink3 sm:inline">{ph.note}</span>
+                    <span className="ml-auto font-mono text-[11px] text-ink2">{phDone}/{phTotal}</span>
+                  </div>
+            {tracks.map((t) => {
               const { s, list } = stops(p, t.id);
               const isCur = t.id === cur;
               const doneCount = list.filter((x) => x.state === 'done').length;
               const fill = doneCount === 0 ? 0 : doneCount >= list.length ? 100 : (doneCount / (list.length - 1)) * 100;
               return (
                 <button key={t.id} type="button" onClick={() => setParams({ track: t.id })} aria-pressed={sel === t.id}
-                  className={cx('relative grid w-full gap-1.5 rounded-xl border py-2.5 pl-8 pr-2.5 text-left lg:min-h-[68px] lg:grid-cols-[200px_1fr] lg:items-center lg:gap-6 lg:pr-5',
+                  className={cx('relative grid w-full gap-1.5 rounded-xl border py-2.5 pl-8 pr-2.5 text-left lg:min-h-[56px] lg:grid-cols-[290px_1fr] lg:items-center lg:gap-6 lg:pr-5',
                     isCur ? 'border-red/40 bg-red/[.07]' : 'border-transparent hover:bg-white/[.03]', sel === t.id && (isCur ? 'border-red/70' : 'border-line-strong bg-white/[.04]'))}>
                   <span aria-hidden className={cx('absolute left-[9px] top-1/2 h-0.5 w-5', isCur ? 'bg-red' : 'bg-muted')} />
                   <span aria-hidden className={cx('absolute left-1 top-[calc(50%-6px)] h-3 w-3 rounded-[3px] border-[1.5px] bg-bg0', isCur ? 'border-red' : 'border-muted')} />
@@ -66,10 +79,13 @@ export default function Roadmap() {
                 </button>
               );
             })}
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        <section aria-label="Track details" className="card flex flex-col gap-3.5 rounded-xl">
+        <section aria-label="Track details" className="card flex flex-col gap-3.5 rounded-xl lg:sticky lg:top-8">
           <div className="flex flex-col gap-1.5">
             <span className="label !text-red-hi">T{selData.s.track.n} · {selData.s.total} lessons · 1 boss</span>
             <h2 className="m-0 font-display text-xl font-semibold">{selData.s.track.name}</h2>

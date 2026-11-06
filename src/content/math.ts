@@ -1,0 +1,190 @@
+import { c, q, w, type Boss, type Lesson } from './types';
+
+export const mathLessons: Lesson[] = [
+  {
+    id: 'math-1', track: 'math', title: 'Discrete math (the useful parts)', minutes: 9,
+    goal: 'Use sets, boolean logic, counting and graphs — the math programmers use every day.',
+    diagram: {
+      kind: 'compare',
+      a: { title: 'Sets & logic', icon: 'boxes', points: ['A ∩ B: in both (AND)', 'A ∪ B: in either (OR)', 'NOT A: everything else'] },
+      b: { title: 'Counting & graphs', icon: 'network', points: ['4-digit PIN: 10⁴ = 10,000', 'Graph: nodes + edges', 'Shortest path, networks'] },
+    },
+    cards: [
+      c('why', 'code', 'Every if, every SQL query uses this.', 'It is the math of computers.'),
+      c('idea', 'boxes', 'A [set] is a group with no repeats.', 'Students in Math ∩ students in Physics.'),
+      c('how', 'binary', '[Boolean logic]: AND, OR, NOT.', 'true AND false = false.'),
+      c('how', 'key', 'Counting: choices multiply.', '4-digit PIN: 10×10×10×10 = 10,000.'),
+      c('how', 'network', 'A [graph]: nodes joined by edges.', 'Cities + roads, people + friendships.'),
+      c('example', 'shield', '8-char password, 62 symbols:', '62⁸ ≈ 218 trillion combinations.'),
+      c('recap', 'check', 'Sets → databases. Logic → if.', 'Counting → security. Graphs → networks.'),
+    ],
+    deep: [
+      { title: 'De Morgan’s laws (fix messy ifs)', points: ['NOT (A AND B) = (NOT A) OR (NOT B).', 'NOT (A OR B) = (NOT A) AND (NOT B).', 'Use them to simplify conditions in code.'] },
+      { title: 'Counting rules', points: ['Product rule: independent choices multiply.', 'Permutations (order matters): 3 people in 3 seats = 3! = 6.', 'Combinations (order doesn’t): pick 2 of 5 = 10.'] },
+      { title: 'Graph words', points: ['Degree: number of edges on a node.', 'Directed: one-way (Twitter follow). Weighted: edges have cost (km).', 'Tree: a connected graph with no cycles.'] },
+    ],
+    realCase: { title: 'Why 4-digit PINs lock after 3 tries', text: 'Only 10,000 options. Without a lock, a bot tries them all in minutes.' },
+    words: [
+      w('Set', 'A collection of distinct items.'),
+      w('Boolean logic', 'Math of true/false with AND, OR, NOT.'),
+      w('Graph', 'Nodes (points) connected by edges (lines).'),
+    ],
+    amharic: 'ዲስክሪት ሂሳብ ስብስቦችን፣ ሎጂክን፣ ቆጠራን እና ግራፎችን ያስተምራል።',
+    quiz: [
+      q('true AND false =', ['true', 'false', 'maybe', 'error'], 1, 'AND needs both to be true.'),
+      q('How many 4-digit PINs exist?', ['10,000', '40', '1,000', '9,999'], 0, '10 × 10 × 10 × 10.'),
+      q('NOT (A AND B) equals…', ['(NOT A) OR (NOT B)', 'A OR B', 'NOT A AND B', 'A AND B'], 0, 'De Morgan’s law.'),
+    ],
+  },
+  {
+    id: 'math-2', track: 'math', title: 'Probability', minutes: 9,
+    goal: 'Compute simple probabilities, combine events, and avoid the base-rate trap.',
+    diagram: {
+      kind: 'bars',
+      caption: '1,000 PEOPLE · DISEASE IN 1% · TEST 90% ACCURATE',
+      bars: [
+        { label: 'Sick, test +', value: 9, text: '9' },
+        { label: 'Healthy, test +', value: 99, text: '99', hot: true },
+        { label: 'Real chance', value: 8, text: '≈ 8%' },
+      ],
+    },
+    cards: [
+      c('why', 'ai', 'AI outputs are probabilities.', 'So are risks, tests and spam filters.'),
+      c('idea', 'gauge', '[Probability]: 0 = never, 1 = always.', 'P = good outcomes ÷ all outcomes.'),
+      c('how', 'replay', 'Two independent events: multiply.', 'Two heads in a row: ½ × ½ = ¼.'),
+      c('how', 'flow', '[Conditional probability]: P(A given B).', 'Rain is likelier if it’s cloudy.'),
+      c('example', 'alert', 'A 90% test says you’re sick.', 'If the disease is rare, maybe only 8% true.'),
+      c('mistake', 'alert', '“Lost 5 times, I’m due a win.” No.', 'Independent events have no memory.'),
+      c('recap', 'check', 'Always ask: how common is it at all?', 'That is the [base rate].'),
+    ],
+    deep: [
+      { title: 'The test example, counted', points: ['1,000 people, 1% sick → 10 sick, 990 healthy.', '90% catch: 9 of 10 sick test positive.', '10% false alarm: 99 of 990 healthy test positive.', 'Positive and sick: 9 / (9 + 99) ≈ 8%.'] },
+      { title: 'Bayes’ rule (the formula)', points: ['P(A|B) = P(B|A) × P(A) / P(B).', 'It updates a belief when new evidence arrives.', 'Spam filters use it for every word.'] },
+      { title: 'Expected value', points: ['Average result if you repeat many times.', 'Lottery: ticket 10 birr, expected win 4 birr → you lose on average.'] },
+    ],
+    realCase: { title: 'Bank fraud alerts', text: 'Fraud is rare, so most alerts are false alarms. Banks tune models with the base rate in mind.' },
+    words: [
+      w('Probability', 'A number from 0 to 1 for how likely something is.'),
+      w('Conditional probability', 'How likely A is when we know B happened.'),
+      w('Base rate', 'How common something is before any test or evidence.'),
+    ],
+    amharic: 'ፕሮባቢሊቲ አንድ ነገር የመሆን እድሉን ከ0 እስከ 1 ባለ ቁጥር ያሳያል።',
+    quiz: [
+      q('Chance of two heads in two coin flips?', ['1/4', '1/2', '1', '2'], 0, 'Independent: ½ × ½.'),
+      q('After 5 tails, the next flip is heads with chance…', ['1/2', 'Higher', 'Lower', '1'], 0, 'Coins have no memory.'),
+      q('Rare disease, positive test. The key thing to check?', ['The base rate', 'The test colour', 'The day of week', 'Your name'], 0, 'Rare conditions make false alarms common.'),
+    ],
+  },
+  {
+    id: 'math-3', track: 'math', title: 'Statistics', minutes: 9,
+    goal: 'Use mean vs median, read spread and sample size, and separate correlation from causation.',
+    diagram: {
+      kind: 'bars',
+      caption: '9 STAFF EARN 10K BIRR, THE OWNER 200K',
+      bars: [
+        { label: 'Median', value: 10, text: '10,000', hot: true },
+        { label: 'Mean', value: 29, text: '29,000' },
+      ],
+    },
+    cards: [
+      c('why', 'trend', 'Dashboards, A/B tests, AI evals.', 'All statistics. All easy to misread.'),
+      c('idea', 'gauge', '[Mean] = sum ÷ count.', '[Median] = the middle value.'),
+      c('how', 'alert', 'One huge value pulls the mean.', 'The median stays honest.'),
+      c('how', 'scale', 'Spread matters: [standard deviation].', 'Same average, very different risk.'),
+      c('how', 'users', 'Bigger samples = more trust.', '10 users can lie. 10,000 rarely do.'),
+      c('example', 'school', 'Schools with more books score higher.', 'Books, or richer families? Not proven.'),
+      c('recap', 'check', '[Correlation] is not causation.', 'Test it with a fair experiment.'),
+    ],
+    deep: [
+      { title: 'Percentiles', points: ['p50 = median. p95 = 95% are below this.', 'Engineers watch p95/p99 latency: the unlucky users.'] },
+      { title: 'Standard deviation', points: ['Average distance from the mean.', 'Normal (bell) curve: ~68% within 1 SD, ~95% within 2.'] },
+      { title: 'Fair experiments', points: ['Random groups: chance decides who gets what.', 'Change one thing only. Same time period.', 'Then a big difference is likely real.'] },
+    ],
+    tryIt: { title: 'Mean vs median in a spreadsheet', steps: ['Type 9 rows of 10000 and one row of 200000.', '=AVERAGE(A1:A10) and =MEDIAN(A1:A10).', 'Which one tells the truth about a typical salary?'] },
+    realCase: { title: '“Average salary” in a job ad', text: 'A few managers can lift the mean far above what most staff earn. Ask for the median.' },
+    words: [
+      w('Mean', 'The average: add all values, divide by how many.'),
+      w('Median', 'The middle value when sorted.'),
+      w('Standard deviation', 'How spread out values are around the mean.'),
+      w('Correlation', 'Two things moving together. Not proof one causes the other.'),
+    ],
+    amharic: 'ሚዲያን ብዙ ጊዜ ከአማካይ የበለጠ የተለመደውን እሴት በእውነት ያሳያል።',
+    quiz: [
+      q('One huge salary in the data. Which stays honest?', ['Median', 'Mean', 'Total', 'Max'], 0, 'The middle value ignores extremes.'),
+      q('Ice cream sales and drownings rise together. So…', ['Hot weather may cause both', 'Ice cream causes drowning', 'Drowning sells ice cream', 'Nothing'], 0, 'A third factor explains the correlation.'),
+      q('p95 latency 2 s means…', ['95% of requests take under 2 s', 'Average is 2 s', 'All take 2 s', '5% are under 2 s'], 0, 'The slowest 5% take longer.'),
+    ],
+  },
+  {
+    id: 'math-4', track: 'math', title: 'Logical reasoning', minutes: 8,
+    goal: 'Use if-then logic correctly, find counterexamples, and spot common fallacies.',
+    diagram: {
+      kind: 'compare',
+      a: { title: 'Valid', icon: 'check', points: ['If rain → road wet. It rained.', 'So the road is wet. ✓', 'Not wet → it didn’t rain. ✓'] },
+      b: { title: 'Invalid', icon: 'close', points: ['If rain → road wet. Road is wet.', 'So it rained? ✗', 'A pipe could have burst.'] },
+    },
+    cards: [
+      c('why', 'bug', 'Debugging is pure logic.', '“If this, then that… so what’s wrong?”'),
+      c('idea', 'flow', '[Implication]: if A then B.', 'It says nothing when A is false.'),
+      c('how', 'check', 'Valid: A is true → B is true.', 'Valid: B is false → A is false.'),
+      c('how', 'close', 'Invalid: B is true → A is true.', 'That is [affirming the consequent].'),
+      c('example', 'bug', '“If the server is down, the page fails.”', 'Page fails ≠ server down. Check DNS too.'),
+      c('how', 'target', 'One [counterexample] kills a rule.', '“All swans are white” → one black swan.'),
+      c('recap', 'check', 'Examples support. Counterexamples prove wrong.', 'Think like a tester.'),
+    ],
+    deep: [
+      { title: 'The 4 forms', points: ['Modus ponens: A→B, A ⊢ B. Valid.', 'Modus tollens: A→B, not B ⊢ not A. Valid.', 'Affirming the consequent: A→B, B ⊢ A. Invalid.', 'Denying the antecedent: A→B, not A ⊢ not B. Invalid.'] },
+      { title: 'Common fallacies', points: ['Appeal to authority: “a famous dev said it”.', 'False choice: “only A or B” when C exists.', 'Hasty generalization: 3 users → “everyone”.'] },
+      { title: 'Proof styles', points: ['Direct proof, proof by contradiction, induction.', 'Induction: true for 1, and n → n+1, so true for all.'] },
+    ],
+    realCase: { title: 'Outage review', text: '“After the update, errors rose.” Logic says: check other causes before blaming the update.' },
+    words: [
+      w('Implication', 'If A then B: whenever A is true, B is true.'),
+      w('Affirming the consequent', 'The mistake of reasoning “B is true, so A must be true”.'),
+      w('Counterexample', 'One case that proves a general claim false.'),
+    ],
+    amharic: 'ትክክለኛ አመክንዮ ከእውነታዎች ትክክለኛ መደምደሚያ ላይ ያደርሳል።',
+    quiz: [
+      q('If it rains, the road is wet. The road is dry. So…', ['It did not rain', 'It rained', 'Can’t say anything', 'Road is wet'], 0, 'Modus tollens: not B, so not A.'),
+      q('“All my tests passed, so my code has no bugs.” This is…', ['Invalid reasoning', 'A proof', 'Modus ponens', 'Big O'], 0, 'Tests show some cases, not all.'),
+      q('What disproves “all X are Y”?', ['One counterexample', 'Many examples', 'A long essay', 'Voting'], 0, 'One case is enough.'),
+    ],
+  },
+];
+
+export const mathBoss: Boss = {
+  id: 'boss-math', track: 'math', title: 'Is this result real?',
+  task: ['Promo test: A got 5.0% sign-ups, B got 6.2%.', 'The boss wants to launch B to everyone.', 'Design a fair check first.'],
+  tags: ['A/B TEST', 'STATISTICS', 'NO LUCK'],
+  blocks: [
+    { label: 'Random split of users', icon: 'users' },
+    { label: 'Same time period', icon: 'clock' },
+    { label: 'Big enough sample', icon: 'gauge' },
+    { label: 'Significance test', icon: 'scale' },
+    { label: 'Check median, not only mean', icon: 'trend' },
+    { label: 'Pick only loyal users for B', icon: 'alert' },
+    { label: 'Trust day 1 only', icon: 'bug' },
+  ],
+  start: ['Promo test'],
+  checks: [
+    { text: 'Groups are fair', needs: ['Random split of users'], avoid: ['Pick only loyal users for B'] },
+    { text: 'Same conditions in time', needs: ['Same time period'], avoid: ['Trust day 1 only'] },
+    { text: 'Enough data', needs: ['Big enough sample'] },
+    { text: 'Not just luck', needs: ['Significance test'] },
+    { text: 'Outliers don’t fool us', needs: ['Check median, not only mean'] },
+  ],
+  hints: ['If B’s users were chosen by hand, is it fair?', '50 vs 62 sign-ups: could that be chance?', 'A few big spenders can move the mean.'],
+  model: {
+    kind: 'flow',
+    nodes: [
+      { id: 'u', label: 'Users', icon: 'users', x: 40, y: 110 },
+      { id: 'r', label: 'Random', x: 130, y: 110, w: 70, hot: true },
+      { id: 'a', label: 'A 5.0%', x: 225, y: 50, w: 72 },
+      { id: 'b', label: 'B 6.2%', x: 225, y: 170, w: 72 },
+      { id: 't', label: 'p < 0.05?', x: 320, y: 110, w: 72, hot: true },
+    ],
+    edges: [['u', 'r'], ['r', 'a'], ['r', 'b'], ['a', 't'], ['b', 't']],
+    route: ['u', 'r', 'a', 't', 'b', 'r'],
+  },
+  modelNotes: ['Random split, same 2 weeks, thousands of users per group.', 'Run a significance test: is 5.0% vs 6.2% bigger than chance?', 'Only then launch B. Keep measuring after.'],
+};

@@ -18,7 +18,6 @@ function useWide() {
   useEffect(() => { const m = window.matchMedia(q); const f = () => setWide(m.matches); m.addEventListener('change', f); return () => m.removeEventListener('change', f); }, []);
   return wide;
 }
-const PASS = 4;
 
 function ModelAnswer({ spec, locked }: { spec: Parameters<typeof FlowDiagram>[0]['spec']; locked: boolean }) {
   const t = useLoop(Math.max(5, spec.route.length * 1.1));
@@ -60,6 +59,7 @@ export default function Boss() {
   const track = getTrack(boss.track)!;
   const checks = boss.checks.map((c) => ({ ...c, ok: (c.needs.length === 0 || c.needs.some((n) => labels.has(n))) && !(c.avoid ?? []).some((a) => labels.has(a)) }));
   const score = checks.filter((c) => c.ok).length;
+  const PASS = checks.length - 1; // all but one check
   const firstOpen = checks.findIndex((c) => !c.ok);
   const beaten = p.doneBosses.includes(boss.id);
 
