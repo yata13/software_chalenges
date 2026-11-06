@@ -114,7 +114,7 @@ export const networkLessons: Lesson[] = [
     ],
     deep: [
       { title: 'HTTP status codes', points: ['2xx success: 200 OK, 201 Created.', '3xx redirect: 301 Moved, 304 Not Modified.', '4xx your fault: 400, 401, 403, 404. 5xx server fault: 500, 502, 503.'] },
-      { title: 'Round trips cost the most', points: ['Addis ↔ Europe ≈ 100 ms per round trip.', 'DNS + TCP + TLS ≈ 3 round trips before the first byte.', 'That is why CDNs and keep-alive connections help.'] },
+      { title: 'Round trips cost the most', points: ['Addis ↔ Europe ≈ 100 ms per round trip.', 'TCP + TLS + the request ≈ 3–4 round trips before the first byte (plus DNS).', 'That is why CDNs and keep-alive connections help.'] },
       { title: 'Rendering', points: ['HTML → DOM tree. CSS → styles. JS can change both.', 'Big JS files block the page from showing.'] },
     ],
     tryIt: { title: 'Watch a page load', steps: ['Open any site in Chrome, press F12 → Network tab.', 'Reload. Count requests and see the total time.', 'Click one request → Timing: see DNS, connect, SSL.'] },

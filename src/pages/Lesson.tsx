@@ -64,7 +64,7 @@ export default function Lesson() {
                     <span className="font-display text-[14px] font-semibold">{d.title}</span>
                     <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
                       {d.points.map((pt) => (
-                        <li key={pt} className="flex gap-2 text-[14px] leading-[20px] text-ink2"><span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-red-hi" /><span className={/^[^A-Z0-9“"‘']/.test(pt) ? 'font-mono text-[12.5px] text-ink' : ''}>{pt}</span></li>
+                        <li key={pt} className="flex gap-2 text-[14px] leading-[20px] text-ink2"><span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-red-hi" /><span className={/^[^A-Z0-9“"‘'…]/.test(pt) ? 'font-mono text-[12.5px] text-ink' : ''}>{pt}</span></li>
                       ))}
                     </ul>
                   </div>

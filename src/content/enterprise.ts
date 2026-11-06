@@ -176,7 +176,7 @@ export const enterpriseLessons: Lesson[] = [
     cards: [
       c('why', 'clock', 'Random guessing wastes hours.', 'A method finds it in minutes.'),
       c('idea', 'layers', 'Test layer by layer, bottom up.', 'The first layer that fails is the problem.'),
-      c('how', 'plug', 'Cable in? Link light on? Power on?', 'Half of all faults end here.'),
+      c('how', 'plug', 'Cable in? Link light on? Power on?', 'Many faults end right here.'),
       c('how', 'globe', 'IP 169.254.x.x = no DHCP answer.', 'Check the DHCP server or switch port.'),
       c('how', 'search', 'ping 8.8.8.8 works, google.com doesn’t?', 'It is DNS.'),
       c('example', 'users', 'Only one floor is down.', 'Look at that floor’s switch, not the internet.'),
@@ -223,7 +223,7 @@ export const enterpriseLessons: Lesson[] = [
       { title: 'Tools', points: ['ServiceNow, Jira Service Management, Freshservice, osTicket (free).'] },
       { title: 'Metrics', points: ['MTTR: mean time to restore.', 'First-contact resolution rate.', 'User satisfaction after each ticket.'] },
     ],
-    realCase: { title: 'A telecom’s IT team', text: 'Every outage becomes a problem record. Over a year, repeat incidents drop by half.' },
+    realCase: { title: 'A telecom’s IT team', text: 'Every big outage becomes a problem record, so the same failure stops coming back.' },
     words: [
       w('ITIL', 'A widely used framework of IT service management practices.'),
       w('SLA', 'Service Level Agreement: promised response and fix times.'),

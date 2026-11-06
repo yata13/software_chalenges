@@ -24,10 +24,10 @@ export const cloudLessons: Lesson[] = [
     ],
     deep: [
       { title: 'Inside a server', points: ['Same parts as a PC: CPU, RAM, disks, network cards.', 'Extras: 2 power supplies, ECC RAM, remote management (iDRAC/iLO).'] },
-      { title: 'Data center tiers', points: ['Tier I: basic. Tier IV: everything doubled, ~26 min/year down.', 'Cooling can use ~30–40% of total power.'] },
+      { title: 'Data center tiers', points: ['Tier I: basic. Tier IV: everything doubled, ~26 min/year down.', 'Cooling is a big share of power; efficient sites keep it low.'] },
       { title: 'Disks: RAID', points: ['RAID 1: mirror two disks. One dies, data lives.', 'RAID is not backup: deleted files are deleted on both.'] },
     ],
-    realCase: { title: 'Ethio Telecom data centers', text: 'telebirr and many Ethiopian services run on servers in data centers in Addis Ababa with backup power.' },
+    realCase: { title: 'Ethio Telecom data centers', text: 'Ethio Telecom runs large data centers in Addis Ababa, with backup power, cooling and security around the clock.' },
     words: [
       w('Server', 'A computer that answers requests from other computers.'),
       w('Racks', 'Metal shelves that hold many servers.'),

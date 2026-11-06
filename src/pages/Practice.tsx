@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { Button, Icon, IconButton, KEYS, LinkButton, PageTitle, ProgressRing, QuizAnswer, Stat, WhySheet, answerState, cx } from '../components/ui';
 import { ALL_LESSONS, getTrack, type Lesson } from '../content';
 import { actions, streakOf, useProgress } from '../store/progress';
+import { answerOrder, shuffle } from '../lib/shuffle';
 
 const COUNT = 5;
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const starsFor = (right: number, secs: number) => (right === COUNT && secs < 90 ? 3 : right >= COUNT - 1 ? 2 : right >= 2 ? 1 : 0);
-function shuffle<T>(a: T[]) { const x = [...a]; for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; }
 
 export function Stars({ n }: { n: number }) {
   return (
@@ -77,6 +77,8 @@ function Run({ finished }: { finished: Lesson[] }) {
   const [key, setKey] = useState(0);
   const questions = useMemo(() => shuffle(finished.flatMap((l) => l.quiz.map((q) => ({ ...q, track: l.track })))).slice(0, COUNT), [key]); // eslint-disable-line react-hooks/exhaustive-deps
   const [qi, setQi] = useState(0);
+  // New random answer order for every question (right answer not always “A”).
+  const order = useMemo(() => answerOrder(questions[qi]?.options.length ?? 0), [questions, qi]);
   const [picked, setPicked] = useState<number | null>(null);
   const [log, setLog] = useState<{ q: string; ok: boolean; secs: number }[]>([]);
   const [over, setOver] = useState<null | { right: number; secs: number; stars: number; xp: number }>(null);
@@ -161,9 +163,9 @@ function Run({ finished }: { finished: Lesson[] }) {
         <h1 className="m-0 font-display text-2xl font-semibold leading-8">{q.q}</h1>
       </div>
       <div key={`${key}-${qi}`} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {q.options.map((o, i) => <QuizAnswer key={i} k={KEYS[i]} text={o} state={answerState(i, picked, q.answer)} onPick={() => pick(i)} />)}
+        {order.map((orig, pos) => <QuizAnswer key={orig} k={KEYS[pos]} text={q.options[orig]} state={answerState(orig, picked, q.answer)} onPick={() => pick(orig)} />)}
       </div>
-      {picked !== null && <WhySheet ok={picked === q.answer} answer={`${KEYS[q.answer]} · ${q.options[q.answer]}`} why={q.why} xp={10} next={next} nextLabel={qi + 1 < n ? 'Next question' : 'See score'} />}
+      {picked !== null && <WhySheet ok={picked === q.answer} answer={`${KEYS[order.indexOf(q.answer)]} · ${q.options[q.answer]}`} why={q.why} xp={10} next={next} nextLabel={qi + 1 < n ? 'Next question' : 'See score'} />}
     </div>
   );
 }

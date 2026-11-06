@@ -22,11 +22,11 @@ export const telecomLessons: Lesson[] = [
       c('how', 'eye', 'Light stays inside by [total internal reflection].', 'It bounces along the glass core.'),
       c('how', 'scale', 'Single-mode: thin core, 1 path, long distance.', 'Multi-mode: thicker, short runs in buildings.'),
       c('how', 'layers', 'Many colours share one fiber: [DWDM].', 'Each colour = its own channel.'),
-      c('example', 'globe', 'Ethiopia has no sea.', 'Traffic reaches undersea cables via Djibouti and Sudan by land fiber.'),
+      c('example', 'globe', 'Ethiopia has no sea.', 'Land fiber, mostly via Djibouti, reaches undersea cables.'),
       c('recap', 'check', 'Fiber: huge bandwidth, low loss, no radio noise.', 'Weak point: a cut cable.'),
     ],
     deep: [
-      { title: 'Numbers', points: ['Light in glass ≈ 200,000 km/s (2/3 of light speed in air).', 'Addis → Djibouti ≈ 750 km ≈ 4 ms one way.', 'One modern fiber pair can carry tens of Tbit/s with DWDM.'] },
+      { title: 'Numbers', points: ['Light in glass ≈ 200,000 km/s (about 2/3 of its speed in vacuum).', 'Addis → Djibouti ≈ 750 km ≈ 4 ms one way.', 'One modern fiber pair can carry tens of Tbit/s with DWDM.'] },
       { title: 'Why it beats copper', points: ['No electrical interference from motors or lightning.', 'Much lower loss: amplifiers every ~80 km, not every few km.', 'Thin and light; more capacity in the same duct.'] },
       { title: 'FTTH', points: ['Fiber To The Home: a fiber line to your house or building.', 'A small box (ONT) turns light into Ethernet/Wi-Fi.'] },
     ],
@@ -73,7 +73,7 @@ export const telecomLessons: Lesson[] = [
       { title: 'Sharing the radio', points: ['TDMA: each 200 kHz channel is split into 8 time slots.', 'Each call uses one slot: 8 calls per channel.'] },
       { title: 'Security note', points: ['2G only checks the phone, not the tower.', 'Fake towers can trick phones. 3G/4G check both sides.'] },
     ],
-    realCase: { title: 'Checking balance with *804#', text: 'USSD messages travel through the same GSM core as calls, so they work even without data.' },
+    realCase: { title: 'Checking your balance by USSD', text: 'USSD messages travel through the same GSM core as calls, so they work even without data.' },
     words: [
       w('SIM', 'A small chip with your identity (IMSI) and secret key (Ki).'),
       w('HLR', 'Home Location Register: the main database of subscribers.'),
@@ -105,7 +105,7 @@ export const telecomLessons: Lesson[] = [
       c('how', 'phone', '3G added real mobile internet.', 'Video calls became possible.'),
       c('how', 'globe', '4G [LTE] is all-IP, even for voice.', 'Voice runs as data: VoLTE.'),
       c('how', 'gauge', '5G: more speed, ~10 ms [latency].', 'Millions of devices per km².'),
-      c('example', 'building', 'Ethio Telecom launched 5G in Addis in 2022.', 'Safaricom Ethiopia started with 4G.'),
+      c('example', 'building', 'Ethio Telecom started 5G in Addis in 2022.', 'Most phones here still use 3G or 4G.'),
       c('recap', 'check', 'Speed is not everything.', 'Coverage and latency matter for real users.'),
     ],
     deep: [
@@ -236,7 +236,7 @@ export const telecomLessons: Lesson[] = [
       c('recap', 'check', 'Keep delay under ~150 ms one way.', 'Above that, people talk over each other.'),
     ],
     deep: [
-      { title: 'Codecs', points: ['G.711: 64 kbps, simple, good on LANs.', 'Opus: 6–510 kbps, adapts to bad networks (WhatsApp, Zoom).', 'Lower bitrate = less data, slightly lower quality.'] },
+      { title: 'Codecs', points: ['G.711: 64 kbps, simple, good on LANs.', 'Opus: 6–510 kbps, adapts to bad networks (WhatsApp, WebRTC apps).', 'Lower bitrate = less data, slightly lower quality.'] },
       { title: 'Quality of Service (QoS)', points: ['Mark voice packets as priority on routers.', 'Voice waits less behind big downloads.'] },
       { title: 'Problems and fixes', points: ['Echo: echo cancellation. One-way audio: often NAT/firewall.', 'Robotic voice: packet loss or jitter.'] },
     ],

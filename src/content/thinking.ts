@@ -137,7 +137,7 @@ export const thinkingLessons: Lesson[] = [
       c('why', 'alert', 'Most failed projects built the wrong thing.', 'Not the thing wrong.'),
       c('idea', 'chat', 'People ask for solutions. Find the need.', '“A system” → “parents see grades weekly”.'),
       c('how', 'users', 'Talk to every user type.', 'Director, teachers, parents, students.'),
-      c('how', 'doc', 'Write [user stories]:', '“As a parent, I want grades by SMS, so I can help.”'),
+      c('how', 'doc', 'Write [user stories]: who, what, why.', '“As a parent, I want SMS grades, to help.”'),
       c('how', 'check', 'Add [acceptance criteria]: how we test “done”.', '“SMS sent within 1 hour of grading.”'),
       c('example', 'scale', 'MoSCoW: Must, Should, Could, Won’t.', 'Build the Musts first: that is the [MVP].'),
       c('recap', 'check', 'Functional = what it does.', 'Non-functional = how well (speed, cost, offline).'),
@@ -147,7 +147,7 @@ export const thinkingLessons: Lesson[] = [
       { title: 'Constraints in Ethiopia', points: ['Power cuts → offline mode, sync later.', 'Basic phones → SMS/USSD, not only apps.', 'Data cost → small pages, few images.'] },
       { title: 'Watch out', points: ['Scope creep: “just one more feature” every week.', 'Gold plating: building things nobody asked for.'] },
     ],
-    realCase: { title: 'A school portal', text: 'The director asked for “everything”. Interviews showed parents only needed grades and attendance by SMS. MVP shipped in 6 weeks.' },
+    realCase: { title: 'A school portal', text: 'A director asks for “everything”. Interviews often show parents mainly need grades and attendance by SMS. That small core is the MVP.' },
     words: [
       w('User stories', '“As a [user], I want [action], so that [goal].”'),
       w('Acceptance criteria', 'Conditions that prove a story is done.'),

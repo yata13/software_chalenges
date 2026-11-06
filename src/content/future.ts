@@ -15,7 +15,7 @@ export const futureLessons: Lesson[] = [
       c('how', 'layers', '[T-shaped skills]: broad base + one deep area.', 'This app is your broad base.'),
       c('how', 'target', 'Deep in one: backend, cloud, data, security…', 'Pick by interest and local demand.'),
       c('how', 'globe', '[Remote work] opens global jobs from Ethiopia.', 'Proof of work matters more than location.'),
-      c('example', 'code', 'A junior dev in 2026: AI writes the draft.', 'They read, test, fix, and ship 2–3× faster.'),
+      c('example', 'code', 'A junior dev in 2026: AI writes the draft.', 'They read, test, fix, and ship faster.'),
       c('recap', 'check', 'Learn fundamentals + AI tools together.', 'That combination is rare and valuable.'),
     ],
     deep: [
@@ -50,8 +50,8 @@ export const futureLessons: Lesson[] = [
       ],
     },
     cards: [
-      c('why', 'rocket', 'AI engineering is the fastest-growing dev role.', 'And you can start today.'),
-      c('idea', 'layers', 'It is a stack: each layer sits on the one below.', 'Don’t skip the base.'),
+      c('why', 'rocket', 'AI engineering is one of the fastest-growing roles.', 'And you can start today.'),
+      c('idea', 'layers', 'A stack: each layer sits on the one below.', 'Don’t skip the base.'),
       c('how', 'code', 'Base: Python or TypeScript, Git, REST, Linux.', 'Everything sits on this.'),
       c('how', 'brain', 'Call an [LLM API] from code.', 'Prompts, tokens, cost, streaming.'),
       c('how', 'db', 'Add your data with RAG. Then tools and agents.', 'That is most real AI products.'),

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Icon, IconButton, KEYS, LinkButton, QuizAnswer, WhySheet, XPBar, answerState } from '../components/ui';
 import { ALL_LESSONS, getLesson, getTrack, lessonNum } from '../content';
 import { actions } from '../store/progress';
+import { answerOrder } from '../lib/shuffle';
 import NotFound from './NotFound';
 
 export default function Quiz() {
@@ -15,6 +16,9 @@ export default function Quiz() {
   const [xp, setXp] = useState(0);
   const [lastXp, setLastXp] = useState(0);
   const [over, setOver] = useState(false);
+  // Show the options in a new random order each time, so the answer isn't always “A”.
+  const optionCount = lesson?.quiz[qi]?.options.length ?? 0;
+  const order = useMemo(() => answerOrder(optionCount), [id, qi, optionCount]);
 
   if (!lesson) return <NotFound />;
   const track = getTrack(lesson.track)!;
@@ -25,7 +29,7 @@ export default function Quiz() {
     if (picked !== null) return;
     setPicked(i);
     const ok = i === q.answer;
-    const got = actions.answerQuiz(lesson.id, qi, ok);
+    const got = actions.answerQuiz(lesson.id, q.q, ok);
     setLastXp(got);
     if (ok) { setRight((r) => r + 1); setXp((x) => x + got); }
   };
@@ -70,10 +74,10 @@ export default function Quiz() {
         <h1 className="m-0 font-display text-2xl font-semibold leading-8 lg:text-[30px] lg:leading-[38px]">{q.q}</h1>
       </div>
       <div key={qi} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {q.options.map((o, i) => <QuizAnswer key={i} k={KEYS[i]} text={o} state={answerState(i, picked, q.answer)} onPick={() => pick(i)} />)}
+        {order.map((orig, pos) => <QuizAnswer key={orig} k={KEYS[pos]} text={q.options[orig]} state={answerState(orig, picked, q.answer)} onPick={() => pick(orig)} />)}
       </div>
       {picked !== null
-        ? <WhySheet ok={picked === q.answer} answer={`${KEYS[q.answer]} · ${q.options[q.answer]}`} why={q.why} xp={lastXp} next={next} nextLabel={qi + 1 < total ? (picked === q.answer ? 'Next question' : 'Got it') : 'Finish'} />
+        ? <WhySheet ok={picked === q.answer} answer={`${KEYS[order.indexOf(q.answer)]} · ${q.options[q.answer]}`} why={q.why} xp={lastXp} next={next} nextLabel={qi + 1 < total ? (picked === q.answer ? 'Next question' : 'Got it') : 'Finish'} />
         : <p className="label m-0">Tap one answer</p>}
     </div>
   );

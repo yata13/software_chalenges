@@ -72,12 +72,12 @@ export default function Boss() {
     setBoxes((bs) => [...bs, nb]);
     setSel(nb.id);
   };
-  const remove = () => {
-    if (!sel) return;
-    setBoxes((bs) => bs.filter((b) => b.id !== sel));
-    setLinks((ls) => ls.filter(([a, b]) => a !== sel && b !== sel));
+  const removeBox = (id: string) => {
+    setBoxes((bs) => bs.filter((b) => b.id !== id));
+    setLinks((ls) => ls.filter(([a, b]) => a !== id && b !== id));
     setSel(null);
   };
+  const remove = () => { if (sel) removeBox(sel); };
   const center = (b: Box) => {
     const r = area.current?.getBoundingClientRect();
     const w = r?.width ?? 340, h = r?.height ?? 360;
@@ -97,13 +97,17 @@ export default function Boss() {
     const y = Math.min(1, Math.max(0, d.oy + dy / (r.height - BH)));
     setBoxes((bs) => bs.map((b) => (b.id === d.id ? { ...b, x, y, fresh: false } : b)));
   };
-  const up = (b: Box) => {
-    const d = drag.current; drag.current = null;
-    if (!d || d.moved) return;
-    if (sel && sel !== b.id) { // tap a 2nd box: link (or unlink)
+  // Tap (or Enter/Space): select a box; with one selected, tap another to draw/remove an arrow.
+  const tap = (b: Box) => {
+    if (sel && sel !== b.id) {
       setLinks((ls) => (ls.some(([x, y]) => x === sel && y === b.id) ? ls.filter(([x, y]) => !(x === sel && y === b.id)) : [...ls, [sel, b.id]]));
       setSel(null);
     } else setSel(sel === b.id ? null : b.id);
+  };
+  const up = (b: Box) => {
+    const d = drag.current; drag.current = null;
+    if (!d || d.moved) return;
+    tap(b);
   };
   const submit = () => {
     setSubmitted(true);
@@ -118,7 +122,7 @@ export default function Boss() {
             <h1 className="m-0 font-display text-[22px] font-semibold leading-7">{boss.title}</h1>
             <div className="flex flex-col leading-[23px]">{boss.task.map((l, i) => <p key={l} className={cx('m-0', i === boss.task.length - 1 && 'text-ink2')}>{l}</p>)}</div>
             <div className="flex flex-wrap gap-1.5">{boss.tags.map((t) => <Tag key={t}>{t}</Tag>)}</div>
-            {beaten && <span className="font-mono text-[11px] text-green">✓ BEATEN BEFORE</span>}
+            {beaten && <span className="font-mono text-[11px] text-green">✓ BEATEN</span>}
           </section>
     ),
     check: (
@@ -179,6 +183,7 @@ export default function Boss() {
                   <motion.button key={b.id} type="button" initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                     aria-pressed={sel === b.id} aria-label={`${b.label}. Drag to move. Tap it, then tap another box to draw an arrow.`}
                     onPointerDown={(e) => down(e, b)} onPointerUp={() => up(b)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(b); } if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); removeBox(b.id); } }}
                     style={{ left: cx0 - BW / 2, top: cy0 - BH / 2, width: BW, height: BH }}
                     className={cx('absolute flex touch-none select-none items-center justify-center gap-1.5 rounded-[10px] border-[1.5px] px-2 text-center text-[12px] font-bold leading-[14px]',
                       b.fresh ? 'border-dashed border-red-hi bg-red/[.12] text-red-hi' : 'border-ink bg-sunk',

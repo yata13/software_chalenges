@@ -33,11 +33,36 @@ export const dayKey = (d = new Date()) => {
   return z.toISOString().slice(0, 10);
 };
 
+// Make any loaded data safe to use: wrong types fall back to empty values.
+const isObj = (x: unknown): x is Record<string, unknown> => !!x && typeof x === 'object' && !Array.isArray(x);
+const strArr = (x: unknown) => (Array.isArray(x) ? x.filter((v): v is string => typeof v === 'string') : []);
+const numMap = (x: unknown) => (isObj(x) ? Object.fromEntries(Object.entries(x).filter(([, v]) => typeof v === 'number' && Number.isFinite(v))) as Record<string, number> : {});
+function normalize(d: unknown): Progress {
+  const e = empty();
+  if (!isObj(d)) return e;
+  return {
+    v: 1,
+    name: typeof d.name === 'string' ? d.name.slice(0, 30) : '',
+    xp: typeof d.xp === 'number' && Number.isFinite(d.xp) && d.xp >= 0 ? Math.round(d.xp) : 0,
+    doneLessons: strArr(d.doneLessons),
+    doneBosses: strArr(d.doneBosses),
+    correct: strArr(d.correct),
+    scores: numMap(d.scores),
+    days: numMap(d.days),
+    lastCard: numMap(d.lastCard),
+    saved: strArr(d.saved),
+    runs: Array.isArray(d.runs)
+      ? (d.runs.filter((r) => isObj(r) && typeof r.score === 'number' && typeof r.of === 'number' && typeof r.secs === 'number' && typeof r.stars === 'number') as unknown as Run[]).slice(0, 10)
+      : [],
+    amharic: typeof d.amharic === 'boolean' ? d.amharic : e.amharic,
+  };
+}
+
 function read(): Progress {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return { ...empty(), ...JSON.parse(raw) };
-  } catch { /* blocked storage: start fresh */ }
+    if (raw) return normalize(JSON.parse(raw));
+  } catch { /* blocked storage or bad data: start fresh */ }
   return empty();
 }
 
@@ -49,6 +74,15 @@ function set(fn: (s: Progress) => Progress) {
   subs.forEach((f) => f());
 }
 const subscribe = (f: () => void) => { subs.add(f); return () => { subs.delete(f); }; };
+
+// Another tab (or the installed app) saved progress: load it here too.
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key !== KEY) return;
+    state = read();
+    subs.forEach((f) => f());
+  });
+}
 
 export function useProgress() {
   return useSyncExternalStore(subscribe, () => state, () => state);
@@ -67,9 +101,9 @@ export const actions = {
   setCard: (lessonId: string, i: number) => set((s) => ({ ...s, lastCard: { ...s.lastCard, [lessonId]: i } })),
   toggleWord: (term: string) => set((s) => ({ ...s, saved: s.saved.includes(term) ? s.saved.filter((w) => w !== term) : [...s.saved, term] })),
 
-  /** Returns XP given (10 the first time this question is right, else 0). */
-  answerQuiz(lessonId: string, q: number, right: boolean): number {
-    const key = `${lessonId}:${q}`;
+  /** Returns XP given (10 the first time this question is right, else 0). Keyed by question text. */
+  answerQuiz(lessonId: string, question: string, right: boolean): number {
+    const key = `${lessonId}:${question}`;
     if (!right || state.correct.includes(key)) return 0;
     set((s) => ({ ...addXP(s, XP_CORRECT), correct: [...s.correct, key] }));
     return XP_CORRECT;
@@ -94,8 +128,10 @@ export const actions = {
   // ---------- Backup: a code you copy to another device ----------
   exportCode(): string {
     const json = JSON.stringify(state);
-    const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(json)));
-    return `TB1.${b64}`;
+    const bytes = new TextEncoder().encode(json);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return `TB1.${btoa(bin)}`;
   },
   importCode(code: string): boolean {
     try {
@@ -103,7 +139,7 @@ export const actions = {
       const bytes = Uint8Array.from(atob(raw), (c) => c.charCodeAt(0));
       const data = JSON.parse(new TextDecoder().decode(bytes));
       if (data?.v !== 1 || typeof data.xp !== 'number' || !Array.isArray(data.doneLessons)) return false;
-      set(() => ({ ...empty(), ...data }));
+      set(() => normalize(data));
       return true;
     } catch {
       return false;

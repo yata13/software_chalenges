@@ -95,7 +95,7 @@ export const humanaiLessons: Lesson[] = [
       c('how', 'doc', 'Give [context]: who, what, why, for whom.', 'Paste the real code or data.'),
       c('how', 'layers', 'Ask for a format: table, JSON, 5 bullets.', 'Easier to read and to check.'),
       c('how', 'check', 'Show examples: [few-shot] prompting.', 'One good example beats a long rule.'),
-      c('example', 'code', 'Bad: “explain this”.', 'Good: “explain this SQL to a junior, 5 lines, with 1 risk”.'),
+      c('example', 'code', 'Bad: “explain this”.', 'Good: “explain this SQL to a junior, in 5 lines”.'),
       c('recap', 'check', 'Iterate: read, adjust, ask again.', 'Prompts are drafts too.'),
     ],
     deep: [
@@ -104,7 +104,7 @@ export const humanaiLessons: Lesson[] = [
       { title: 'Amharic tips', points: ['Ask for simple Amharic, then English, to compare.', 'Check names and numbers carefully.'] },
     ],
     tryIt: { title: 'Upgrade one prompt', steps: ['Ask an AI: “Explain DNS.”', 'Then: “Explain DNS to a new developer in Ethiopia, 5 short lines, with one real example and one common mistake.”', 'Compare the answers.'] },
-    realCase: { title: 'A customer service bot', text: 'Adding 3 example answers to the prompt cut wrong replies far more than switching to a bigger model.' },
+    realCase: { title: 'A customer service bot', text: 'Often, adding 3 good example answers to the prompt fixes more wrong replies than switching to a bigger model.' },
     words: [
       w('Context', 'The background information the model needs to do the task.'),
       w('Few-shot', 'Giving a few examples in the prompt to show what you want.'),
@@ -174,12 +174,12 @@ export const humanaiLessons: Lesson[] = [
       steps: ['1 DRAFT', '2 REVIEW', '3 FIX', '', '', '4 SHIP'],
     },
     cards: [
-      c('why', 'trend', 'Teams using AI well do 2–3× more.', 'Teams using it badly ship mistakes.'),
+      c('why', 'trend', 'Teams using AI well get much more done.', 'Teams using it badly ship mistakes.'),
       c('idea', 'users', 'AI does volume. Humans do judgment.', 'That is the split.'),
       c('how', 'eye', '[Human in the loop]: a person approves key steps.', 'Especially money, health, legal, users.'),
       c('how', 'gauge', 'Measure: time saved and error rate.', 'Faster but wrong is not better.'),
       c('how', 'shield', 'Protect data: no secrets in public AI tools.', 'Follow your company’s AI policy.'),
-      c('example', 'chat', 'Support team: AI drafts replies.', 'Agent checks and sends. 3× more tickets.'),
+      c('example', 'chat', 'Support team: AI drafts replies.', 'Agent checks and sends. Many more tickets a day.'),
       c('recap', 'check', 'Automate the boring, review the risky.', 'Keep humans accountable.'),
     ],
     deep: [

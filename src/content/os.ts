@@ -14,7 +14,7 @@ export const osLessons: Lesson[] = [
       ],
     },
     cards: [
-      c('why', 'server', 'Over 90% of web servers run Linux.', 'Every backend job expects it.'),
+      c('why', 'server', 'Most web servers and clouds run Linux.', 'Every backend job expects it.'),
       c('idea', 'layers', 'The [kernel] is the boss of the hardware.', 'Apps must ask it for CPU, memory, files.'),
       c('how', 'code', 'The [shell] is where you type commands.', 'It asks the kernel for you.'),
       c('how', 'doc', 'Everything starts at / (the root).', '/home = your files, /etc = settings, /var/log = logs.'),
@@ -23,12 +23,12 @@ export const osLessons: Lesson[] = [
       c('recap', 'check', 'Ubuntu, Debian, Fedora are [distros].', 'Same kernel, different tools around it.'),
     ],
     deep: [
-      { title: 'The file system tree', points: ['/bin, /usr/bin: programs.', '/etc: config files (text). /home/yared: your folder.', '/var/log: logs. /tmp: temporary files, cleared on reboot.', 'Disks are “mounted” into the tree, not given letters like C:.'] },
+      { title: 'The file system tree', points: ['/bin, /usr/bin: programs.', '/etc: config files (text). /home/yared: your folder.', '/var/log: logs. /tmp: temporary files, often cleared on reboot.', 'Disks are “mounted” into the tree, not given letters like C:.'] },
       { title: '10 commands to know first', points: ['pwd, ls -la, cd, mkdir, cp, mv, rm', 'cat / less (read), nano (edit), man (manual page)'] },
       { title: 'Everything is a file', points: ['Devices, settings, even processes appear as files.', '/proc/cpuinfo shows your CPU as text.'] },
     ],
     tryIt: { title: 'Linux in 5 minutes (no install)', steps: ['On Windows 10/11 open PowerShell and run: wsl --install', 'Or open any free online Linux terminal in your browser.', 'Type: pwd, then ls -la, then cat /etc/os-release'] },
-    realCase: { title: 'Ethiopian startups on the cloud', text: 'Most rent Ubuntu servers. The first job of a backend dev is to SSH in and look around.' },
+    realCase: { title: 'Ethiopian startups on the cloud', text: 'Many rent Linux servers in the cloud. A backend dev’s first job there: SSH in and look around.' },
     words: [
       w('Kernel', 'The core of the OS. It controls CPU, memory, disks and devices.'),
       w('Shell', 'A program where you type commands (bash, zsh, PowerShell).'),
@@ -107,7 +107,7 @@ export const osLessons: Lesson[] = [
       c('recap', 'check', 'Every process has an ID: the PID.', 'ps lists them. kill PID stops one.'),
     ],
     deep: [
-      { title: 'Context switch', points: ['The OS saves the CPU state of one process…', '…and loads another. It feels like all run at once.', 'Too many switches waste time: called thrashing.'] },
+      { title: 'Context switch', points: ['The OS saves the CPU state of one process…', '…and loads another. It feels like all run at once.', 'Each switch costs a little time, so too many waste CPU.'] },
       { title: 'Process vs thread', points: ['Process: own memory, isolated, safer, heavier.', 'Thread: shares memory, lighter, but can clash (race condition).'] },
       { title: 'Linux tools', points: ['ps aux: list all. top / htop: live view.', 'kill 1234: ask to stop. kill -9 1234: force stop.', 'Windows: Task Manager or Get-Process.'] },
     ],
@@ -145,7 +145,7 @@ export const osLessons: Lesson[] = [
       c('idea', 'layers', 'Each app gets fake addresses: [virtual memory].', 'The OS maps them to real RAM.'),
       c('how', 'boxes', 'Memory is cut into [pages] (4 KB each).', 'The page table says where each one is.'),
       c('how', 'disk', 'RAM full? Old pages move to [swap].', 'Swap is on disk: ~1,000× slower.'),
-      c('example', 'alert', '8 GB RAM, 11 GB used = 3 GB on disk.', 'The disk light blinks; the PC crawls.'),
+      c('example', 'alert', '8 GB RAM, 11 GB needed: 3 GB on disk.', 'The disk light blinks; the PC crawls.'),
       c('mistake', 'close', '“More swap fixes slow PCs.” No.', 'It prevents crashes. More RAM fixes speed.'),
       c('recap', 'check', 'Apps never touch RAM directly.', 'Isolation keeps one app from reading another.'),
     ],
@@ -176,9 +176,9 @@ export const osLessons: Lesson[] = [
       b: { title: 'chmod 777', icon: 'alert', points: ['Everyone can write', 'Any user can change it', 'Almost always a mistake'] },
     },
     cards: [
-      c('why', 'shield', 'Most server hacks use too-open files.', 'Permissions are your first wall.'),
+      c('why', 'shield', 'Too-open files are a common way in.', 'Permissions are your first wall.'),
       c('idea', 'users', 'Every file has an owner, a group, others.', 'Each gets read, write, execute.'),
-      c('how', 'binary', 'r = 4, w = 2, x = 1. Add them up.', 'rwx = 7, r-x = 5, r-- = 4.'),
+      c('how', 'binary', 'r=4, w=2, x=1. Add them up.', 'rwx = 7, r-x = 5, r-- = 4.'),
       c('how', 'key', '[root] can do anything.', 'Use [sudo] for one command, not forever.'),
       c('example', 'doc', 'ls -l shows: -rw-r--r-- notes.txt', 'Owner reads+writes, others only read.'),
       c('mistake', 'alert', '“Permission denied” → chmod 777. No!', 'Find the right owner instead.'),
@@ -228,7 +228,7 @@ export const osLessons: Lesson[] = [
       c('recap', 'check', 'Test on a copy first.', 'rm in a loop can delete a lot, fast.'),
     ],
     deep: [
-      { title: 'A real backup script', points: ['#!/bin/bash', 'DATE=$(date +%F)', 'tar -czf /backup/site-$DATE.tar.gz /var/www', 'find /backup -mtime +7 -delete   # keep 7 days'] },
+      { title: 'A real backup script', points: ['#!/bin/bash', 'DATE=$(date +%F)', 'tar -czf /backup/site-$DATE.tar.gz /var/www', 'find /backup -type f -mtime +7 -delete   # keep 7 days'] },
       { title: 'Redirects', points: ['> file: write output (overwrites).', '>> file: append. 2> file: save errors.', '&& : run next only if the first succeeded.'] },
       { title: 'Safety habits', points: ['Quote variables: "$FILE" (spaces break things).', 'set -e: stop the script on the first error.', 'echo the command before running it for real.'] },
     ],

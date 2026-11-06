@@ -15,7 +15,7 @@ export const csLessons: Lesson[] = [
       ],
     },
     cards: [
-      c('why', 'gauge', 'Same data, wrong shape → 1,000× slower.', 'Choosing the shape is half the work.'),
+      c('why', 'gauge', 'Same data, wrong shape: can be 1,000× slower.', 'Choosing the shape is half the work.'),
       c('idea', 'boxes', 'A [data structure] is a way to arrange data.', 'Each is fast at some jobs, slow at others.'),
       c('how', 'boxes', '[Array]: items side by side, numbered.', 'Get item #500 instantly. Insert in middle: slow.'),
       c('how', 'key', '[Hash map]: key → value.', 'Find a phone number by name, instantly.'),
@@ -104,7 +104,7 @@ export const csLessons: Lesson[] = [
       c('idea', 'gauge', '[Big O] = how steps grow as data grows.', 'Not seconds. Growth.'),
       c('how', 'target', 'O(1): same speed always (hash lookup).', 'O(log n): halving (binary search).'),
       c('how', 'replay', 'O(n): one loop over all items.', 'O(n²): a loop inside a loop. Danger.'),
-      c('example', 'users', 'Compare every student with every other:', '1M students → 1 trillion steps. Days.'),
+      c('example', 'users', 'Compare every student with every other:', '1M students → about 1 trillion steps. Far too slow.'),
       c('mistake', 'alert', 'O(2n) is just O(n).', 'Drop constants; keep the shape.'),
       c('recap', 'check', 'Nested loops on big data? Stop and think.', 'Usually a hash map fixes it.'),
     ],

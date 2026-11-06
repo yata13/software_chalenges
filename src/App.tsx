@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import type { ComponentType } from 'react';
 import { Sidebar, TabBar } from './components/Nav';
 import { cx } from './components/ui';
 import Home from './pages/Home';
@@ -14,6 +15,12 @@ import NotFound from './pages/NotFound';
 // Charts (Recharts) are heavy: load the Profile page only when opened.
 const Profile = lazy(() => import('./pages/Profile'));
 
+// Remount the page when :id changes, so state (card, answers) never leaks between lessons.
+function Keyed({ page: Page }: { page: ComponentType }) {
+  const { id } = useParams();
+  return <Page key={id} />;
+}
+
 export default function App() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
@@ -27,9 +34,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<Roadmap />} />
-          <Route path="/lesson/:id" element={<Lesson />} />
-          <Route path="/quiz/:id" element={<Quiz />} />
-          <Route path="/boss/:id" element={<Boss />} />
+          <Route path="/lesson/:id" element={<Keyed page={Lesson} />} />
+          <Route path="/quiz/:id" element={<Keyed page={Quiz} />} />
+          <Route path="/boss/:id" element={<Keyed page={Boss} />} />
           <Route path="/practice" element={<Practice />} />
           <Route path="/practice/run" element={<Practice run />} />
           <Route path="/profile" element={<Profile />} />

@@ -150,7 +150,7 @@ export const machineLessons: Lesson[] = [
       { title: 'Syntax vs runtime errors', points: ['Syntax error: the parser can’t understand you (missing “)”).', 'Runtime error: valid code that fails while running (divide by 0).', 'Compiled languages catch more errors before running.'] },
       { title: 'Assembly', points: ['Human names for machine instructions: MOV, ADD, JMP.', 'One assembly line ≈ one CPU instruction.'] },
     ],
-    tryIt: { title: 'See Python’s bytecode', steps: ['Install Python, open a terminal, type: python', 'Type: import dis', 'Type: dis.dis("x = 2 + 3")', 'You see the small steps Python really runs.'] },
+    tryIt: { title: 'See Python’s bytecode', steps: ['Install Python, open a terminal, type: python', 'Type: import dis', 'Type: dis.dis("x = a + b")', 'You see: load a, load b, add, store x.'] },
     realCase: { title: 'Your first Python script', text: 'You type print("Selam"). Python turns it into bytecode, then steps the CPU can run.' },
     words: [
       w('Machine code', 'Instructions in 0s and 1s that a CPU runs.'),

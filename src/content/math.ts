@@ -41,11 +41,10 @@ export const mathLessons: Lesson[] = [
     goal: 'Compute simple probabilities, combine events, and avoid the base-rate trap.',
     diagram: {
       kind: 'bars',
-      caption: '1,000 PEOPLE · DISEASE IN 1% · TEST 90% ACCURATE',
+      caption: '1,000 PEOPLE · 1% SICK · TEST 90% RIGHT → ONLY 9 OF 108 POSITIVES ARE SICK (≈ 8%)',
       bars: [
-        { label: 'Sick, test +', value: 9, text: '9' },
-        { label: 'Healthy, test +', value: 99, text: '99', hot: true },
-        { label: 'Real chance', value: 8, text: '≈ 8%' },
+        { label: 'Positive, sick', value: 9, text: '9 people' },
+        { label: 'Positive, healthy', value: 99, text: '99 people', hot: true },
       ],
     },
     cards: [
@@ -108,7 +107,7 @@ export const mathLessons: Lesson[] = [
       w('Standard deviation', 'How spread out values are around the mean.'),
       w('Correlation', 'Two things moving together. Not proof one causes the other.'),
     ],
-    amharic: 'ሚዲያን ብዙ ጊዜ ከአማካይ የበለጠ የተለመደውን እሴት በእውነት ያሳያል።',
+    amharic: 'ሚዲያን ብዙ ጊዜ ከአማካዩ ይልቅ የተለመደውን እሴት በትክክል ያሳያል።',
     quiz: [
       q('One huge salary in the data. Which stays honest?', ['Median', 'Mean', 'Total', 'Max'], 0, 'The middle value ignores extremes.'),
       q('Ice cream sales and drownings rise together. So…', ['Hot weather may cause both', 'Ice cream causes drowning', 'Drowning sells ice cream', 'Nothing'], 0, 'A third factor explains the correlation.'),
@@ -154,7 +153,7 @@ export const mathLessons: Lesson[] = [
 
 export const mathBoss: Boss = {
   id: 'boss-math', track: 'math', title: 'Is this result real?',
-  task: ['Promo test: A got 5.0% sign-ups, B got 6.2%.', 'The boss wants to launch B to everyone.', 'Design a fair check first.'],
+  task: ['Promo test, 1,000 users each: A 5.0%, B 6.2%.', 'The boss wants to launch B to everyone.', 'Design a fair check first.'],
   tags: ['A/B TEST', 'STATISTICS', 'NO LUCK'],
   blocks: [
     { label: 'Random split of users', icon: 'users' },
@@ -186,5 +185,5 @@ export const mathBoss: Boss = {
     edges: [['u', 'r'], ['r', 'a'], ['r', 'b'], ['a', 't'], ['b', 't']],
     route: ['u', 'r', 'a', 't', 'b', 'r'],
   },
-  modelNotes: ['Random split, same 2 weeks, thousands of users per group.', 'Run a significance test: is 5.0% vs 6.2% bigger than chance?', 'Only then launch B. Keep measuring after.'],
+  modelNotes: ['Random split, same 2 weeks, thousands of users per group.', 'With 1,000 users each, 5.0% vs 6.2% is NOT significant (p ≈ 0.24): it could be luck.', 'Only then launch B. Keep measuring after.'],
 };
