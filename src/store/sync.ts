@@ -55,7 +55,11 @@ async function rpc<T>(fn: string, body: Record<string, unknown>): Promise<T> {
       body: JSON.stringify(body),
       signal: ctrl.signal,
     });
-    if (!res.ok) throw new Error(`Server said ${res.status}: ${(await res.text()).slice(0, 160)}`);
+    if (!res.ok) {
+      const text = await res.text();
+      if (text.includes('PGRST202')) throw new Error('The sync server is not set up yet (run the setup SQL in Supabase).');
+      throw new Error(`Server said ${res.status}: ${text.slice(0, 160)}`);
+    }
     return (await res.json()) as T;
   } finally {
     clearTimeout(timer);
