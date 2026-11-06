@@ -5,6 +5,7 @@ import { AmharicToggle, Button, Chip, Icon, IconButton, LinkButton, Rich, Segmen
 import Diagram from '../diagrams/Diagram';
 import { getLesson, getTrack, lessonNum } from '../content';
 import { STAGE_LABEL } from '../content/types';
+import LabPanel from '../components/LabPanel';
 import { actions, useProgress } from '../store/progress';
 import NotFound from './NotFound';
 
@@ -35,6 +36,12 @@ export default function Lesson() {
   const last = idx === n - 1;
   const go = (i: number) => setIdx(Math.max(0, Math.min(n - 1, i)));
   const pickWord = (w: string) => setWord((cur) => (cur?.toLowerCase() === w.toLowerCase() ? null : w));
+
+  // Scroll to the experiment panel that is visible (phone and desktop layouts differ).
+  const toLab = () => {
+    const el = [...document.querySelectorAll<HTMLElement>('[data-lab]')].find((e) => e.offsetParent !== null);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const extras = (
     <>
@@ -74,7 +81,8 @@ export default function Lesson() {
           )}
         </AnimatePresence>
       </section>
-      {lesson.tryIt && (
+      {lesson.lab && <LabPanel lessonId={lesson.id} lab={lesson.lab} />}
+      {!lesson.lab && lesson.tryIt && (
         <section aria-label="Try it" className="card flex flex-col gap-3 border-dashed">
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 flex-none items-center justify-center rounded-md border border-line"><Icon name="hammer" size={22} /></span>
@@ -143,6 +151,12 @@ export default function Lesson() {
                       <p className="m-0 text-[17px] font-bold leading-[23px]"><Rich text={c.lines[0]} onWord={pickWord} /></p>
                       {c.lines[1] && <p className="m-0 text-[15px] leading-[21px] text-ink2"><Rich text={c.lines[1]} onWord={pickWord} /></p>}
                     </div>
+                    {c.code && <pre className="m-0 overflow-hidden whitespace-pre rounded-md border border-line-soft bg-bg0 p-2.5 font-mono text-[11.5px] leading-[17px] text-ink">{c.code}</pre>}
+                    {c.stage === 'lab' && lesson.lab && (
+                      <button type="button" onClick={toLab} className="mt-auto flex h-10 items-center justify-center gap-2 rounded-md border border-red-line bg-red-node font-mono text-[12px] text-red-hi">
+                        <Icon name="lab" size={16} />GO TO THE EXPERIMENT ↓
+                      </button>
+                    )}
                   </article>
                 ))}
               </motion.div>

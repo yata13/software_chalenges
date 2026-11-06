@@ -19,6 +19,7 @@ export interface Progress {
   amharic: boolean; amharicAt: number;
   doneLessons: string[];
   doneBosses: string[];
+  labsDone: string[]; // experiments finished
   correct: string[]; // "lessonId:question" answered right (XP only the first time)
   scores: Record<string, number>; // best quiz % per lesson
   lastCard: Record<string, number>; // furthest card reached per lesson
@@ -36,6 +37,7 @@ const DEVICE_KEY = 'tech-blueprint:device';
 export const DAILY_GOAL = 50;
 export const XP_CORRECT = 10;
 export const XP_BOSS = 50;
+export const XP_LAB = 20;
 
 export const dayKey = (d = new Date()) => {
   const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
@@ -59,7 +61,7 @@ export function deviceId() {
 function blank(): Progress {
   return {
     v: 2, epoch: 0, name: '', nameAt: 0, amharic: true, amharicAt: 0,
-    doneLessons: [], doneBosses: [], correct: [], scores: {}, lastCard: {}, savedLog: {}, xpLog: {}, runs: [],
+    doneLessons: [], doneBosses: [], labsDone: [], correct: [], scores: {}, lastCard: {}, savedLog: {}, xpLog: {}, runs: [],
     xp: 0, days: {}, saved: [],
   };
 }
@@ -118,6 +120,7 @@ export function normalizeProgress(d: unknown): Progress {
     amharic: typeof d.amharic === 'boolean' ? d.amharic : true, amharicAt: num(d.amharicAt),
     doneLessons: strArr(d.doneLessons),
     doneBosses: strArr(d.doneBosses),
+    labsDone: strArr(d.labsDone),
     correct: strArr(d.correct),
     scores: numMap(d.scores),
     lastCard: numMap(d.lastCard),
@@ -151,6 +154,7 @@ export function mergeProgress(a: Progress, b: Progress): Progress {
     amharic: b.amharicAt > a.amharicAt ? b.amharic : a.amharic, amharicAt: Math.max(a.amharicAt, b.amharicAt),
     doneLessons: union(a.doneLessons, b.doneLessons),
     doneBosses: union(a.doneBosses, b.doneBosses),
+    labsDone: union(a.labsDone, b.labsDone),
     correct: union(a.correct, b.correct),
     scores: maxMap(a.scores, b.scores),
     lastCard: maxMap(a.lastCard, b.lastCard),
@@ -166,7 +170,7 @@ export function syncData(p: Progress) {
   return {
     v: 2 as const, epoch: p.epoch,
     name: p.name, nameAt: p.nameAt, amharic: p.amharic, amharicAt: p.amharicAt,
-    doneLessons: [...p.doneLessons].sort(), doneBosses: [...p.doneBosses].sort(), correct: [...p.correct].sort(),
+    doneLessons: [...p.doneLessons].sort(), doneBosses: [...p.doneBosses].sort(), labsDone: [...p.labsDone].sort(), correct: [...p.correct].sort(),
     scores: sortKeys(p.scores), lastCard: sortKeys(p.lastCard),
     savedLog: sortKeys(p.savedLog),
     xpLog: sortKeys(Object.fromEntries(Object.entries(p.xpLog).map(([dev, m]) => [dev, sortKeys(m)]))),
@@ -247,6 +251,12 @@ export const actions = {
     if (state.doneBosses.includes(bossId)) return 0;
     set((s) => ({ ...addXP(s, XP_BOSS), doneBosses: [...s.doneBosses, bossId] }));
     return XP_BOSS;
+  },
+  /** Returns XP given (20 the first time an experiment is done). */
+  finishLab(lessonId: string): number {
+    if (state.labsDone.includes(lessonId)) return 0;
+    set((s) => ({ ...addXP(s, XP_LAB), labsDone: [...s.labsDone, lessonId] }));
+    return XP_LAB;
   },
   practiceAnswer(right: boolean): number {
     if (!right) return 0;

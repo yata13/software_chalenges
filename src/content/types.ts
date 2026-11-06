@@ -62,15 +62,25 @@ export type Diagram = FlowDiagram | StackDiagram | CompareDiagram | BarsDiagram 
 
 // ---------- Lessons ----------
 // Professor flow: every lesson walks through these stages, in order.
-export type Stage = 'why' | 'idea' | 'how' | 'example' | 'mistake' | 'recap';
+export type Stage = 'why' | 'idea' | 'how' | 'use' | 'example' | 'lab' | 'mistake' | 'recap';
 export const STAGE_LABEL: Record<Stage, string> = {
-  why: 'Why it matters', idea: 'The big idea', how: 'How it works',
-  example: 'Worked example', mistake: 'Common mistake', recap: 'Key takeaway',
+  why: 'Why it matters', idea: 'The big idea', how: 'How it works', use: 'Where it’s used',
+  example: 'Worked example', lab: 'Experiment', mistake: 'Common mistake', recap: 'Key takeaway',
 };
 export interface Card {
   stage: Stage;
   icon: IconName;
   lines: [string] | [string, string]; // [hard word] = tap to explain
+  code?: string; // optional command, program or output (shown in mono)
+}
+
+// A real experiment you do on your own computer or phone.
+export interface Lab {
+  title: string;
+  minutes: number;
+  needs: string[];
+  steps: { do: string; cmd?: string; see?: string }[]; // see = what you should see
+  check: { q: string; a: string }; // think about the result
 }
 export interface Word {
   term: string;
@@ -92,7 +102,8 @@ export interface Lesson {
   goal: string; // "By the end you can…"
   realCase: { title: string; text: string };
   deep: { title: string; points: string[] }[]; // Professor's notes: the detail
-  tryIt?: { title: string; steps: string[] }; // optional, easy hands-on
+  tryIt?: { title: string; steps: string[] }; // optional, easy hands-on (short lessons)
+  lab?: Lab; // full experiment (deep lessons)
   words: Word[];
   amharic: string;
   quiz: QuizQuestion[];
@@ -131,6 +142,6 @@ export interface Track {
 }
 
 // ---------- Small helpers so content files stay short ----------
-export const c = (stage: Stage, icon: IconName, a: string, b?: string): Card => ({ stage, icon, lines: b ? [a, b] : [a] });
+export const c = (stage: Stage, icon: IconName, a: string, b?: string, code?: string): Card => ({ stage, icon, lines: b ? [a, b] : [a], ...(code ? { code } : {}) });
 export const q = (question: string, options: string[], answer: number, why: string): QuizQuestion => ({ q: question, options, answer, why });
 export const w = (term: string, meaning: string): Word => ({ term, meaning });

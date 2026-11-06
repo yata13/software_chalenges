@@ -47,6 +47,7 @@ export function Sidebar() {
             <NavLink key={it.to} to={it.to} end={it.to === '/'} className={sideLink}><Icon name={it.icon} /><span className="flex-1">{it.label}</span></NavLink>
           ))}
           <div className="mx-1 my-2 h-px bg-line-soft" />
+          <NavLink to="/plan" className={sideLink}><Icon name="calendar" /><span className="flex-1">Study plan</span></NavLink>
           <NavLink to="/tools" className={sideLink}><Icon name="tools" /><span className="flex-1">Tools</span><span className="font-mono text-[10px] text-ink3">{WORD_BANK.length} WORDS</span></NavLink>
         </div>
 

@@ -28,9 +28,10 @@ export const color = {
 } as const;
 
 export const font = {
-  display: ['Unbounded', 'Segoe UI', 'system-ui', 'sans-serif'],
-  body: ['Atkinson Hyperlegible', 'Verdana', 'system-ui', 'sans-serif'],
-  mono: ['JetBrains Mono', 'ui-monospace', 'Menlo', 'monospace'],
+  // Noto Sans Ethiopic after each main font: Amharic letters always render.
+  display: ['Unbounded', 'Noto Sans Ethiopic', 'Segoe UI', 'system-ui', 'sans-serif'],
+  body: ['Atkinson Hyperlegible', 'Noto Sans Ethiopic', 'Verdana', 'system-ui', 'sans-serif'],
+  mono: ['JetBrains Mono', 'Noto Sans Ethiopic', 'ui-monospace', 'Menlo', 'monospace'],
   am: ['Noto Sans Ethiopic', 'Nyala', 'sans-serif'],
 };
 

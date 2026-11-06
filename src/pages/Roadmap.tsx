@@ -26,7 +26,12 @@ export default function Roadmap() {
   return (
     <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
       <PageTitle label={`${PHASES.length} phases · ${TRACKS.length} tracks · ${TOTAL_LESSONS} lessons · ${TRACKS.length} bosses`} title="Roadmap"
-        right={<span className="font-mono text-[13px]">{p.doneLessons.length}/{TOTAL_LESSONS} <span className="text-red-hi">· {Math.round((p.doneLessons.length / TOTAL_LESSONS) * 100)}%</span></span>} />
+        right={
+          <span className="flex items-center gap-3">
+            <span className="font-mono text-[13px]">{p.doneLessons.length}/{TOTAL_LESSONS} <span className="text-red-hi">· {Math.round((p.doneLessons.length / TOTAL_LESSONS) * 100)}%</span></span>
+            <Link to="/plan" className="flex h-10 items-center gap-2 rounded-md border border-line-strong px-3 text-sm font-bold"><Icon name="calendar" size={16} />Study plan</Link>
+          </span>
+        } />
 
       <div aria-label="Legend" className="flex flex-wrap items-center gap-3.5 rounded-[10px] border border-line-soft bg-surface2 px-3 py-2.5 font-mono text-[11px] text-ink2">
         <span className="flex items-center gap-1.5"><Dot state="done" />DONE</span>

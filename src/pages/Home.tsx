@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Diamond, Icon, IconButton, LinkButton, Logo, ProgressRing, Segments, StreakPill, XPBar, cx } from '../components/ui';
 import { DiagramBody } from '../diagrams/Diagram';
 import { SyncChip } from '../components/SyncCard';
+import { PLAN, itemDone, todayDay } from '../content/plan';
+import { DayItems } from './Plan';
 import { TRACKS, TOTAL_LESSONS, WORD_BANK, getTrack, lessonNum } from '../content';
 import { DAILY_GOAL, actions, continueLesson, dayKey, levelOf, streakOf, thisWeek, trackStats, useProgress } from '../store/progress';
 
@@ -18,6 +20,8 @@ export default function Home() {
   const word = WORD_BANK[Math.floor(Date.now() / 86400000) % WORD_BANK.length];
   const date = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' });
   const [nameDraft, setNameDraft] = useState('');
+  const day = todayDay(p);
+  const dayDone = day.items.filter((it) => itemDone(it, p)).length;
 
   return (
     <div className="mx-auto flex max-w-[1680px] flex-col gap-5">
@@ -81,6 +85,14 @@ export default function Home() {
         )}
 
         <div className="flex flex-col gap-4">
+          <section aria-label="Today's plan" className="card flex flex-col gap-1.5 rounded-xl border-red-line">
+            <div className="flex items-center justify-between gap-2 px-2">
+              <span className="label !text-red-hi">Today · Day {day.n} of {PLAN.length}</span>
+              <span className="label">{dayDone}/{day.items.length} · {day.minutes} min</span>
+            </div>
+            <DayItems day={day} compact />
+            <Link to="/plan" className="flex h-9 items-center px-2 font-mono text-xs text-red-hi">See the full study plan →</Link>
+          </section>
           <section aria-label="Today" className="card flex items-center gap-4">
             <ProgressRing size={96} stroke={9} value={today / DAILY_GOAL} label={`Daily goal: ${today} of ${DAILY_GOAL} XP`}>
               <span className="font-display text-[22px] font-semibold leading-6">{today}</span>

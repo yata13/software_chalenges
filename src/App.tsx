@@ -11,6 +11,7 @@ import Quiz from './pages/Quiz';
 import Boss from './pages/Boss';
 import Practice from './pages/Practice';
 import Tools from './pages/Tools';
+import Plan from './pages/Plan';
 import NotFound from './pages/NotFound';
 
 // Charts (Recharts) are heavy: load the Profile page only when opened.
@@ -54,6 +55,7 @@ export default function App() {
           <Route path="/practice/run" element={<Practice run />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/tools" element={<Tools />} />
+          <Route path="/plan" element={<Plan />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
