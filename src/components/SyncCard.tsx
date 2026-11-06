@@ -121,7 +121,7 @@ export default function SyncCard() {
               <Qr text={syncLink(key)} />
               <ol className="m-0 flex max-w-[300px] list-decimal flex-col gap-1.5 pl-5 text-[14px] leading-5 text-ink2">
                 <li>Point your phone camera at the code.</li>
-                <li>Open the link, then tap <b className="text-ink">Join</b>.</li>
+                <li>Open the link, then tap <b className="text-ink">OK</b> to join.</li>
                 <li>iPhone home-screen app: paste the code in Profile instead.</li>
               </ol>
             </div>
