@@ -3,6 +3,7 @@ import { Area, AreaChart, CartesianGrid, PolarAngleAxis, PolarGrid, Radar, Radar
 import { Button, Icon, IconButton, Stat, XPBar, cx } from '../components/ui';
 import type { IconName } from '../components/icons';
 import { initials } from '../components/Nav';
+import SyncCard from '../components/SyncCard';
 import { TRACKS, TOTAL_LESSONS } from '../content';
 import { actions, levelOf, streakOf, trackStats, useProgress, weekXP, type Progress } from '../store/progress';
 
@@ -139,16 +140,18 @@ export default function Profile() {
         </div>
       </section>
 
+      <SyncCard />
+
       <section aria-label="Backup" className="card flex flex-col gap-3 rounded-xl">
-        <div className="flex items-center gap-2.5"><Icon name="download" color="#FF4B52" /><h2 className="m-0 font-display text-base font-semibold">Backup & move devices</h2></div>
-        <p className="m-0 text-[15px] text-ink2">Phone → PC: export here, then paste the code on the other device and import.</p>
+        <div className="flex items-center gap-2.5"><Icon name="download" color="#FF4B52" /><h2 className="m-0 font-display text-base font-semibold">Backup code</h2></div>
+        <p className="m-0 text-[15px] text-ink2">No sync? Move progress by hand: export here, paste the code on the other device, import.</p>
         <label htmlFor="code" className="sr-only">Progress code</label>
         <textarea id="code" value={code} onChange={(e) => setCode(e.target.value)} rows={3} placeholder="Paste a progress code here (starts with TB1.)"
           className="w-full resize-y break-all rounded-md border border-line bg-sunk p-3 font-mono text-xs outline-none focus:border-red-hi" />
         <div className="flex flex-wrap gap-2.5">
           <Button small onClick={exportCode}><Icon name="copy" size={16} />Export code</Button>
           <Button small variant="secondary" onClick={importCode} disabled={!code.trim()}><Icon name="upload" size={16} />Import code</Button>
-          <Button small variant="secondary" className="ml-auto" onClick={() => { if (window.confirm('Delete all progress on this device?')) { actions.reset(); setMsg({ ok: true, text: 'Progress reset.' }); } }}><Icon name="trash" size={16} />Reset</Button>
+          <Button small variant="secondary" className="ml-auto" onClick={() => { if (window.confirm('Delete all progress? If sync is on, your other devices are cleared too.')) { actions.reset(); setMsg({ ok: true, text: 'Progress reset.' }); } }}><Icon name="trash" size={16} />Reset</Button>
         </div>
         {msg && <p role="status" className={cx('m-0 text-sm', msg.ok ? 'text-green' : 'text-red-hi')}>{msg.text}</p>}
       </section>

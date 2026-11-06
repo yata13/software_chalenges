@@ -1,5 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { extractKey, getSyncKey, joinSync } from './store/sync';
 import type { ComponentType } from 'react';
 import { Sidebar, TabBar } from './components/Nav';
 import { cx } from './components/ui';
@@ -23,7 +24,19 @@ function Keyed({ page: Page }: { page: ComponentType }) {
 
 export default function App() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  // Opened from a sync link / QR code (…/#sync=CODE): offer to join.
+  useEffect(() => {
+    const key = window.location.hash.startsWith('#sync=') ? extractKey(window.location.hash) : null;
+    if (!key) return;
+    history.replaceState(null, '', window.location.pathname + window.location.search); // hide the code from the address bar
+    if (getSyncKey() === key) return;
+    if (window.confirm('Join sync on this device? Progress here and on your other devices will be combined.')) {
+      navigate('/profile');
+      joinSync(key).catch((e) => window.alert(e instanceof Error ? e.message : 'Could not join sync.'));
+    }
+  }, [navigate]);
   // Focus screens (lesson, quiz, boss) hide the phone tab bar
   const focus = /^\/(lesson|quiz|boss)\//.test(pathname) || pathname === '/practice/run';
   return (

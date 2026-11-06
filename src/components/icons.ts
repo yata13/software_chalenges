@@ -6,6 +6,7 @@ import {
   Bug, Eye, Bot, Brain, Plug, Rocket, Target, Building2, Bus, Car, Film, Download, Upload, Gauge,
   MessageSquare, Boxes, Scale, Clock, Banknote, School, Camera, Fingerprint, ShieldAlert, Binary, Hammer,
   Workflow, GraduationCap, TrendingUp, Award, Settings, Image, BatteryFull, CreditCard, Video,
+  CloudOff, RefreshCw, QrCode, Link2,
 } from 'lucide-react';
 
 // One registry so content files can name icons as plain strings.
@@ -23,6 +24,7 @@ export const ICONS = {
   school: School, camera: Camera, finger: Fingerprint, alert: ShieldAlert, binary: Binary, hammer: Hammer,
   flow: Workflow, grad: GraduationCap, trend: TrendingUp, award: Award, settings: Settings, image: Image,
   battery: BatteryFull, card: CreditCard, video: Video,
+  cloudOff: CloudOff, sync: RefreshCw, qr: QrCode, link: Link2,
 } as const;
 
 export type IconName = keyof typeof ICONS;

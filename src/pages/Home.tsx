@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Diamond, Icon, IconButton, LinkButton, Logo, ProgressRing, Segments, StreakPill, XPBar, cx } from '../components/ui';
 import { DiagramBody } from '../diagrams/Diagram';
+import { SyncChip } from '../components/SyncCard';
 import { TRACKS, TOTAL_LESSONS, WORD_BANK, getTrack, lessonNum } from '../content';
 import { DAILY_GOAL, actions, continueLesson, dayKey, levelOf, streakOf, thisWeek, trackStats, useProgress } from '../store/progress';
 
@@ -23,6 +24,7 @@ export default function Home() {
       <header className="flex h-11 items-center justify-between lg:hidden">
         <Logo />
         <div className="flex items-center gap-2">
+          <SyncChip />
           <StreakPill days={streak} />
           <IconButton icon="tools" label="Tools" to="/tools" />
         </div>
@@ -35,6 +37,7 @@ export default function Home() {
           <p className="m-0 text-[15px] text-ink2">{today >= DAILY_GOAL ? 'Daily goal done. Great work!' : `${DAILY_GOAL - today} XP more to hit today’s goal.`}</p>
         </div>
         <div className="hidden items-center gap-2 lg:flex">
+          <SyncChip />
           <StreakPill days={streak} />
           <LinkButton to="/practice/run" variant="secondary" small><Icon name="practice" size={18} />Quick 5</LinkButton>
         </div>
