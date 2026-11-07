@@ -181,7 +181,7 @@ export default function Lesson() {
 
           <AmharicToggle amharic={lesson.amharic} on={p.amharic} onToggle={actions.toggleAmharic} />
 
-          <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line-soft bg-bg0 px-5 pb-[calc(max(18px,env(safe-area-inset-bottom))+var(--nl-lift,0px))] pt-3.5 lg:static lg:border-0 lg:bg-transparent lg:p-0">
+          <div className="fixed inset-x-0 bottom-0 z-10 border-t border-line-soft bg-bg0 px-5 pb-[max(18px,env(safe-area-inset-bottom))] pt-3.5 lg:static lg:border-0 lg:bg-transparent lg:p-0">
             {last
               ? <LinkButton to={`/quiz/${lesson.id}`} block>Start quiz · {lesson.quiz.length} questions</LinkButton>
               : <Button block onClick={() => go(idx + 1)}>Next card<Icon name="arrow" size={18} stroke={2} /></Button>}

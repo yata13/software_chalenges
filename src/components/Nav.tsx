@@ -13,7 +13,7 @@ const ITEMS: { to: string; label: string; icon: IconName }[] = [
 
 export function TabBar() {
   return (
-    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-4 gap-1 border-t border-line-soft bg-bg1 px-2 pb-[calc(max(22px,env(safe-area-inset-bottom))+var(--nl-lift,0px))] pt-1.5 lg:hidden">
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 grid h-[84px] grid-cols-4 gap-1 border-t border-line-soft bg-bg1 px-2 pb-[max(22px,env(safe-area-inset-bottom))] pt-1.5 lg:hidden">
       {ITEMS.map((it) => (
         <NavLink key={it.to} to={it.to} end={it.to === '/'}
           className={({ isActive }) => cx('relative flex h-14 flex-col items-center justify-center gap-1 rounded-md font-mono text-[11px] tracking-wide', isActive ? 'text-red-hi' : 'text-[#9A9AA8] hover:text-ink')}>
