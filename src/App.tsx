@@ -43,7 +43,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className={cx('min-w-0 flex-1 px-5 pt-4 lg:px-10 lg:pb-14 lg:pt-8', focus ? 'pb-28' : 'pb-[112px]')}>
+      <main className={cx('min-w-0 flex-1 px-5 pt-4 lg:px-10 lg:pb-[calc(3.5rem+var(--nl-lift,0px))] lg:pt-8', focus ? 'pb-[calc(7rem+var(--nl-lift,0px))]' : 'pb-[calc(112px+var(--nl-lift,0px))]')}>
         <Suspense fallback={<p className="label pt-10 text-center">Loading…</p>}>
         <Routes>
           <Route path="/" element={<Home />} />
